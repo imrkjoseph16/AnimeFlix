@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="animeList"
+            type="java.util.List&lt;com.example.animenation.app.shared.binder.data.AnimeCarouselItem>" />
+    </data>
+
+    <com.example.animenation.app.component.CustomRecyclerView
+        android:id="@+id/list_movies_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:nestedScrollingEnabled="false"
+        android:paddingVertical="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        bind:items="@{animeList}"
+        tools:listitem="@layout/shared_anime_carousel_item" />
+</layout>
+
+
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="dto"
+            type="com.example.animenation.app.shared.dto.ShimmerLoadingItemViewDto" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/shimmer_anime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shimmer_auto_start="true"
+            app:shimmer_animation_duration="1500">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/widget_anime_placeholder_item" />
+
+                <include layout="@layout/widget_anime_placeholder_item" />
+
+                <include layout="@layout/widget_anime_placeholder_item" />
+
+            </LinearLayout>
+
+
+        </io.supercharge.shimmerlayout.ShimmerLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
