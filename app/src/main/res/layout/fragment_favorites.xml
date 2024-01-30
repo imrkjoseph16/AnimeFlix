@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="?actionBarSize"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    tools:context=".dashboard.pages.favorites.FavoritesFragment" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lyError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <ImageView
+            android:id="@+id/icon_empty"
+            android:layout_width="319dp"
+            android:layout_height="265dp"
+            android:src="@drawable/icon_empty_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
+            android:text="Your List is Empty"
+            android:textColor="@color/second_btn_text"
+            android:textSize="22dp"
+            app:layout_constraintEnd_toEndOf="@+id/icon_empty"
+            app:layout_constraintStart_toStartOf="@+id/icon_empty"
+            app:layout_constraintTop_toBottomOf="@+id/icon_empty" />
+
+        <TextView
+            android:id="@+id/tvError2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:gravity="center"
+            android:text="It seems that you haven't added\n any anime to the list"
+            android:textColor="@color/text_color"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="@+id/icon_empty"
+            app:layout_constraintStart_toStartOf="@+id/icon_empty"
+            app:layout_constraintTop_toBottomOf="@+id/tvError" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarSize="0dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cgCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="true"
+                    app:selectionRequired="true"
+                    app:singleLine="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip4"
+                        style="@style/CustomChipBtnStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:checked="true"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="All Categories"
+                        android:textSize="16dp"
+                        app:chipBackgroundColor="@color/chip_bg"
+                        app:chipCornerRadius="20dp"
+                        app:chipStrokeWidth="2dp"
+                        app:textEndPadding="7dp"
+                        app:textStartPadding="7dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/CustomChipBtnStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="Movie"
+                        android:textSize="16dp"
+                        app:chipBackgroundColor="@color/chip_bg"
+                        app:chipCornerRadius="20dp"
+                        app:chipStrokeWidth="2dp"
+                        app:textEndPadding="7dp"
+                        app:textStartPadding="7dp" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/CustomChipBtnStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="Tv Series"
+                        android:textSize="16dp"
+                        app:chipBackgroundColor="@color/chip_bg"
+                        app:chipCornerRadius="20dp"
+                        app:chipStrokeWidth="2dp"
+                        app:textEndPadding="7dp"
+                        app:textStartPadding="7dp" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/main_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth="50dp" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="Favorites"
+            android:textColor="@color/text_color"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="0dp"
+            tools:layout_conversion_absoluteWidth="0dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/search_icon"
+            android:backgroundTint="@color/text_color"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+    <com.example.animenation.app.component.CustomRecyclerView
+        android:id="@+id/favorite_anime_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

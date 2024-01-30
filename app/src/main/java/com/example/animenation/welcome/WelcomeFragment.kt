@@ -13,7 +13,9 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(FragmentWelcomeBind
 
     private fun FragmentWelcomeBinding.configureViews() {
         getStarted.setOnClickListener {
-            findNavController().navigate(WelcomeFragmentDirections.goToDashboard())
+            goToDashboardScreen()
         }
     }
+
+    private fun goToDashboardScreen() = findNavController().navigate(directions = WelcomeFragmentDirections.goToDashboard())
 }

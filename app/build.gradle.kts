@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -66,9 +67,9 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Navigation Component
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.1.0")
 
     // Coroutine
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.7.1")
@@ -95,6 +96,9 @@ dependencies {
 
     // Shimmer Loading
     implementation("io.supercharge:shimmerlayout:2.1.0")
+
+    // Carousel Indicator
+    implementation("com.tbuonomo:dotsindicator:5.0")
 
     testImplementation("junit:junit:4.13.2")
 

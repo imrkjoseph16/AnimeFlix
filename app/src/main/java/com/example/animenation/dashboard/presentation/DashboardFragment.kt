@@ -9,10 +9,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>(FragmentDashboa
 
     override fun onViewCreated() {
         super.onViewCreated()
-        with(binding) { setupViewPager() }
+        with(binding) {
+            configureViews()
+            setupViewPager()
+        }
     }
 
-    private fun FragmentDashboardBinding.setupViewPager(){
+    private fun FragmentDashboardBinding.configureViews() {
+        bottomNavigation.setOnItemSelectedListener { item ->
+            viewPager.setCurrentItem(item.order, true)
+            true
+        }
+    }
+
+    private fun FragmentDashboardBinding.setupViewPager() {
         viewPager.apply {
             adapter = DashboardAdapter(this@DashboardFragment)
             isUserInputEnabled = false

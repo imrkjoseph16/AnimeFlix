@@ -5,14 +5,14 @@
 
     <data>
         <variable
-            name="movie"
+            name="anime"
             type="com.example.animenation.app.shared.dto.AnimeItemViewDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:foregroundGravity="center">
 
         <FrameLayout
@@ -25,12 +25,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivMovie"
+                android:id="@+id/ivanime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                bind:load_url="@{movie.itemImageUrl}"
+                bind:load_url="@{anime.itemImageUrl}"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"/>
 
             <com.google.android.material.card.MaterialCardView
@@ -44,7 +44,6 @@
                 app:strokeWidth="0dp">
 
                 <TextView
-                    android:id="@+id/tvRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -53,7 +52,7 @@
                     android:layout_marginBottom="6dp"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:text="@{movie.getItemTitle(context)}"
+                    android:text="@{anime.getItemTitle(context)}"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="bold">

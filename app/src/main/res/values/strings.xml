@@ -7,6 +7,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="top_10_anime_this_week">Top 10 Anime This Week</string>
-    <string name="recent_episodes">Anime Recent Episodes</string>
+    <string name="recent_episodes">Latest Episodes Release</string>
+    <string name="anime_result">Anime Result</string>
+    <string name="movie_result">Movie Result</string>
+    <string name="explore_result">Korean series that you might like</string>
     <string name="see_all">See all</string>
+    <string name="genre">Genre :</string>
+    <string name="text_play">Watch</string>
+    <string name="text_subtitle">Subtitle</string>
+    <string name="download">Download</string>
+    <string name="explore_center_description">Explore available anime or movies\nand enjoy watching!</string>
 </resources>

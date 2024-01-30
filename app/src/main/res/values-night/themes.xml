@@ -9,6 +9,7 @@
         <item name="chipBackgroundColor">@color/main_background</item>
         <item name="android:textColor">@color/chip_txt_color</item>
         <item name="chipStrokeColor">@color/red</item>
+        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
     </style>
 
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog">

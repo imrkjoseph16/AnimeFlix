@@ -9,6 +9,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.example.animenation.app.util.ViewUtil
+import javax.inject.Inject
 
 abstract class BaseActivity<VB : ViewBinding>(
     private val bindingInflater: (inflater: LayoutInflater) -> VB
@@ -16,7 +18,19 @@ abstract class BaseActivity<VB : ViewBinding>(
 
     lateinit var binding: VB
 
+    val flags = (
+        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        or View.SYSTEM_UI_FLAG_FULLSCREEN
+        or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+    )
+
     private var willHideStatusBar: Boolean = true
+
+    @Inject
+    lateinit var viewUtil: ViewUtil
 
     protected open fun onActivityCreated() { initViewBinding() }
 
@@ -43,10 +57,10 @@ abstract class BaseActivity<VB : ViewBinding>(
 
     fun setFullScreenMode() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        setDecorationView(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+        setDecorationView(decorView = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
-    private fun setDecorationView(decorView: Int) {
+    fun setDecorationView(decorView: Int) {
         window.decorView.systemUiVisibility = decorView
     }
 

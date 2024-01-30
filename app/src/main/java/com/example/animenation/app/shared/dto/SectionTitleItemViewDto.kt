@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.animenation.app.component.TextLine
 
 /**
- * Reusable component for notes list item.
+ * Reusable component
  *
  * Describes data rendered in [com.example.animenation.R.layout.shared_section_title_item]
  * */

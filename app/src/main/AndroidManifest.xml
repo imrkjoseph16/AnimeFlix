@@ -27,6 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".dashboard.shared.presentation.video.presentation.VideoStreaming"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="sensorLandscape"
+            android:supportsPictureInPicture="true"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@
     <dimen name="height_distance_2x">2dp</dimen>
 
     <dimen name="grid_0">0dp</dimen>
+    <dimen name="grid_0_5_half">2dp</dimen>
     <dimen name="grid_1_half">4dp</dimen>
     <dimen name="grid_1">8dp</dimen>
     <dimen name="grid_2_half">10dp</dimen>

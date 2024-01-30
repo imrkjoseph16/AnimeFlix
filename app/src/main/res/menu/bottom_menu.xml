@@ -3,28 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/bottom_home"
+        android:orderInCategory="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:showAsAction="ifRoom"
         android:icon="@drawable/home_icon"
         android:title="Home" />
     <item
-        android:id="@+id/exploreFragment"
+        android:id="@+id/bottom_explore"
+        android:orderInCategory="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:showAsAction="ifRoom"
         android:icon="@drawable/explore_icon"
         android:title="Explore" />
     <item
-        android:id="@+id/myListFragment"
+        android:id="@+id/bottom_mylist"
+        android:orderInCategory="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:showAsAction="ifRoom"
         android:icon="@drawable/list_icon"
         android:title="My List" />
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/bottom_profile"
+        android:orderInCategory="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:showAsAction="ifRoom"

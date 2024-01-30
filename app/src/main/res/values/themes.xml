@@ -40,6 +40,7 @@
         <item name="android:textColor">@color/chip_txt_color</item>
         <item name="chipStrokeColor">@color/red</item>
         <item name="strokeWidth">3dp</item>
+        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
     </style>
 
     <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog">
@@ -51,6 +52,8 @@
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="android:background">@drawable/et_background</item>
+        <item name="android:fontFamily">@font/sf_pro_text_regular</item>
+        <item name="android:textSize">12dp</item>
     </style>
 
     <style name="Theme.AnimeNation" parent="Base.Theme.AnimeNation" />

@@ -1,6 +1,7 @@
 package com.example.animenation.app.core
 
 import com.example.animenation.app.util.Default.Companion.ANIME_BASE_URL
+import com.example.animenation.app.util.Default.Companion.MOVIES_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,11 +21,25 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(
+    @Named("animeClient")
+    internal fun provideAnimeRetrofit(
         @Named("provideOkHttpClient")
         okHttpClient: OkHttpClient
     ) = Retrofit.Builder()
         .baseUrl(ANIME_BASE_URL)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(okHttpClient)
+        .build()
+
+    @Provides
+    @Singleton
+    @Named("moviesClient")
+    internal fun provideMoviesRetrofit(
+        @Named("provideOkHttpClient")
+        okHttpClient: OkHttpClient
+    ) = Retrofit.Builder()
+        .baseUrl(MOVIES_BASE_URL)
         .addConverterFactory(JacksonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(okHttpClient)

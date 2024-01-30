@@ -5,4 +5,4 @@ import com.example.animenation.databinding.ActivityMainScreenHandlerBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainScreenHandler : BaseActivity<ActivityMainScreenHandlerBinding>(ActivityMainScreenHandlerBinding::inflate)
+class MainScreenHandler : BaseActivity<ActivityMainScreenHandlerBinding>(bindingInflater = ActivityMainScreenHandlerBinding::inflate)

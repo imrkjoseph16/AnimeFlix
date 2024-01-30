@@ -49,7 +49,8 @@ abstract class BaseFragment<VB: ViewBinding>(
 
     fun onBackPressedCallBack(onBackClicked: () -> Unit) =
     (activity as AppCompatActivity).onBackPressedDispatcher.addCallback(viewLifecycleOwner,
-    onBackPressedCallback = object: OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() = onBackClicked.invoke()
-    })
+        onBackPressedCallback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() = onBackClicked.invoke()
+        }
+    )
 }
