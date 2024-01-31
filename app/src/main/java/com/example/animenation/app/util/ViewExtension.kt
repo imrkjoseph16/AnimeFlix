@@ -11,6 +11,10 @@ import android.view.View.OnTouchListener
 import android.widget.VideoView
 import androidx.viewpager2.widget.ViewPager2
 
+fun View.setVisible(canShow: Boolean) {
+    this.visibility = if (canShow) View.VISIBLE else View.GONE
+}
+
 fun ViewPager2.autoScroll(milliSeconds: Long) {
     val handler = Handler()
     var scrollPosition = 0

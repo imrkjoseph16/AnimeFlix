@@ -27,18 +27,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.SearchView
+            <com.example.animenation.app.component.CustomSearchView
                 android:id="@+id/search_anime_movies"
-                style="@style/SearchViewStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:inputType="text|textPersonName"
-                app:iconifiedByDefault="false"
-                app:queryBackground="@drawable/et_background"
-                app:queryHint="Search"/>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/ibFilter"

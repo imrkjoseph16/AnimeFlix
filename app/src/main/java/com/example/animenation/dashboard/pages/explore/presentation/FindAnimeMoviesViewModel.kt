@@ -13,6 +13,7 @@ import com.example.animenation.dashboard.shared.data.extension.transformExplore
 import com.example.animenation.dashboard.shared.domain.AnimeUseCase
 import com.example.animenation.dashboard.shared.domain.MoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -24,7 +25,7 @@ data class ExploreUiItems(
     val moviesResult: ExploreResultData? = null,
     val exploreResult: ExploreResultData? = null,
     val uiListItems: List<Any> = emptyList(),
-    val exploreLoading: Boolean? = false,
+    val exploreLoading: Boolean = false,
     val exploreError: Throwable? = null
 )
 
@@ -34,6 +35,8 @@ class ExploreViewModel @Inject constructor(
     private val moviesUseCase: MoviesUseCase,
     private val findAnimeMoviesFactory: FindAnimeMoviesFactory
 ) : ViewModel() {
+
+    private var exploreJob: Job? = null
 
     private val _uiState = MutableStateFlow(ExploreUiItems())
     val uiState = _uiState.asStateFlow()
@@ -57,16 +60,17 @@ class ExploreViewModel @Inject constructor(
 
     fun exploreAnimeMovies(searchName: String) {
         if (searchName.isEmpty()) resetState()
+        else {
+            exploreJob = viewModelScope.launch {
+                updateLoading(loading = true)
 
-        viewModelScope.launch {
-            updateLoading(loading = true)
+                chainCall (
+                    { animeUseCase.searchAnime(animeName = searchName) },
+                    { moviesUseCase.searchSeries(movieName = searchName) },
+                )
 
-            chainCall (
-                { animeUseCase.searchAnime(animeName = searchName) },
-                { moviesUseCase.searchSeries(movieName = searchName) },
-            )
-
-            updateLoading(loading = false)
+                updateLoading(loading = false)
+            }
         }
     }
 
@@ -111,6 +115,7 @@ class ExploreViewModel @Inject constructor(
     }
 
     private fun resetState() {
+        exploreJob?.cancel()
         _uiState.update { it.copy(
             animeResult = null,
             moviesResult = null,

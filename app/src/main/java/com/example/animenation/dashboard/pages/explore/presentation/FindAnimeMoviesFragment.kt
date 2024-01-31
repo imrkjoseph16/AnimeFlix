@@ -1,17 +1,19 @@
 package com.example.animenation.dashboard.pages.explore.presentation
 
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.animenation.app.component.CustomRecyclerView
+import com.example.animenation.app.component.CustomSearchView
 import com.example.animenation.app.component.ListItemPayloadDiffCallback
 import com.example.animenation.app.foundation.BaseFragment
 import com.example.animenation.app.shared.binder.component.SectionTitleItemBinder
 import com.example.animenation.app.shared.binder.component.ShimmerLoadingItemBinder
 import com.example.animenation.app.shared.binder.component.SpaceItemViewDtoBinder
-import com.example.animenation.app.shared.binder.component.getWidgetItemBinder
 import com.example.animenation.app.shared.binder.component.getWidgetExploreItemBinder
+import com.example.animenation.app.shared.binder.component.getWidgetItemBinder
 import com.example.animenation.app.shared.binder.data.AnimeItem
 import com.example.animenation.app.shared.binder.data.ExploreSeriesItem
 import com.example.animenation.app.util.EntryPointType
@@ -36,25 +38,23 @@ class FindAnimeMoviesFragment : BaseFragment<FragmentFindAnimeMoviesBinding>(bin
     }
 
     private fun FragmentFindAnimeMoviesBinding.configureViews() {
-        searchAnimeMovies.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                onExploreSearch(queryText = query)
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                onExploreSearch(queryText = newText)
-                return false
-            }
-        })
+        searchAnimeMovies.apply {
+            setViewListener(object : CustomSearchView.SearchViewListener {
+                override fun onUserTyped(newText: String) = onExploreSearch(queryText = newText)
+                override fun onSearchTap(searchKey: String) = onExploreSearch(queryText = searchKey)
+                override fun onClearSearch() = onExploreSearch(queryText = "")
+            })
+        }
     }
 
     private fun setupObserver() {
         with(viewModel) {
             viewLifecycleOwner.lifecycleScope.launch {
-                launch {
-                    uiState.collectLatest { newState ->
-                        newState.updateUi()
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    launch {
+                        uiState.collectLatest { newState ->
+                            newState.updateUi()
+                        }
                     }
                 }
             }
@@ -65,7 +65,8 @@ class FindAnimeMoviesFragment : BaseFragment<FragmentFindAnimeMoviesBinding>(bin
         with(binding) {
             uiItems = this@updateUi
             executePendingBindings()
-            if (this@updateUi.uiListItems.isNotEmpty()) searchResultList.smoothScrollToPosition(0)
+            if (uiListItems.isNotEmpty()) searchResultList.smoothScrollToPosition(0)
+            if (exploreLoading.not()) searchAnimeMovies.onResultFinished.invoke()
         }
     }
 

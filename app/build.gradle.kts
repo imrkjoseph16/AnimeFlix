@@ -100,6 +100,9 @@ dependencies {
     // Carousel Indicator
     implementation("com.tbuonomo:dotsindicator:5.0")
 
+    // RxBinding
+    implementation("com.jakewharton.rxbinding:rxbinding:0.4.0")
+
     testImplementation("junit:junit:4.13.2")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

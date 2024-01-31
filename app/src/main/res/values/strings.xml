@@ -17,4 +17,5 @@
     <string name="text_subtitle">Subtitle</string>
     <string name="download">Download</string>
     <string name="explore_center_description">Explore available anime or movies\nand enjoy watching!</string>
+    <string name="hint_search">Search</string>
 </resources>
