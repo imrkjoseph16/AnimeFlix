@@ -51,16 +51,34 @@
     </style>
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
-        <item name="android:background">@drawable/et_background</item>
+        <item name="android:background">@drawable/background_edittext</item>
         <item name="android:fontFamily">@font/sf_pro_text_regular</item>
         <item name="android:textSize">12dp</item>
     </style>
 
     <style name="EditTextViewStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@drawable/et_background</item>
+        <item name="android:background">@drawable/background_edittext</item>
         <item name="android:fontFamily">@font/sf_pro_text_regular</item>
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="ThemeDialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
     <style name="Theme.AnimeNation" parent="Base.Theme.AnimeNation" />
+
+    <style name="TabLayoutTheme" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">@font/sf_pro_text_medium</item>
+    </style>
+
+    <style name="TextViewShadow">
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">@color/white</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+    </style>
 </resources>

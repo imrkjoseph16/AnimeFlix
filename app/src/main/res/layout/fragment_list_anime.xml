@@ -12,6 +12,7 @@
         android:background="@color/main_background">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/list_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +57,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/top_anime_carousel"
                     app:layout_constraintStart_toStartOf="@+id/top_anime_carousel" />
 
-                <com.example.animenation.app.component.CustomRecyclerView
+                <com.imrkjoseph.animenation.app.component.CustomRecyclerView
                     android:id="@+id/home_screen_items"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -69,7 +70,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/top_anime_carousel"
                     tools:layout_conversion_absoluteHeight="0dp"
                     tools:layout_conversion_absoluteWidth="0dp"
-                    tools:listitem="@layout/shared_anime_item"/>
+                    tools:listitem="@layout/shared_horizontal_list_item"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -83,11 +84,12 @@
                         android:id="@+id/search_anime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:padding="8dp"
-                        android:background="@drawable/search_icon"
+                        android:layout_marginEnd="@dimen/grid_2_half"
+                        android:padding="@dimen/grid_2_half"
+                        android:src="@drawable/search_icon"
                         android:focusable="true"
-                        android:foreground="?android:selectableItemBackground"
+                        android:clickable="true"
+                        android:foreground="?android:selectableItemBackgroundBorderless"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/new_notification"
                         app:layout_constraintTop_toTopOf="parent"
@@ -98,10 +100,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:padding="8dp"
-                        android:background="@drawable/bell_icon"
+                        android:padding="@dimen/grid_2_half"
+                        android:src="@drawable/bell_icon"
                         android:focusable="true"
-                        android:foreground="?android:selectableItemBackground"
+                        android:clickable="true"
+                        android:foreground="?android:selectableItemBackgroundBorderless"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

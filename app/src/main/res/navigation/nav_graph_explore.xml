@@ -9,17 +9,21 @@
 
     <fragment
         android:id="@+id/explore_fragment"
-        android:name="com.example.animenation.dashboard.pages.explore.presentation.FindAnimeMoviesFragment"
+        android:name="com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFragment"
         android:label="ExploreFragment"
-        tools:layout="@layout/fragment_find_anime_movies">
+        tools:layout="@layout/fragment_explore_contents">
 
         <action
-            android:id="@+id/action_to_anime_details_screen"
-            app:destination="@id/nav_graph_details">
+            android:id="@+id/action_to_details_screen"
+            app:destination="@id/nav_graph_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
 
             <argument
                 android:name="argument"
-                app:argType="com.example.animenation.dashboard.shared.presentation.details.DetailsArguments"/>
+                app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments"/>
         </action>
     </fragment>
 </navigation>

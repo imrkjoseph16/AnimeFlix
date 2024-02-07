@@ -10,7 +10,7 @@
 
         <variable
             name="data"
-            type="com.example.animenation.app.shared.dto.SpaceItemViewDto" />
+            type="com.imrkjoseph.animenation.app.shared.dto.SpaceItemViewDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

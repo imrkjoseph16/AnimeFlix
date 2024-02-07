@@ -32,4 +32,5 @@
     <color name="second_btn_text">#E21221</color>
     <color name="color_off_toggle">#EEEEEE</color>
     <color name="color_transparent">#00EEEEEE</color>
+    <color name="opacity_gray">#CEC6C0C0</color>
 </resources>

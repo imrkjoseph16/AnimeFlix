@@ -5,32 +5,63 @@
     android:id="@+id/nav_graph_home"
     app:startDestination="@id/anime_list_fragment">
 
-    <include app:graph="@navigation/nav_graph_details"/>
-
     <fragment
         android:id="@+id/anime_list_fragment"
-        android:name="com.example.animenation.dashboard.pages.home.list.AnimeListFragment"
+        android:name="com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListFragment"
         android:label="AnimeListFragment"
         tools:layout="@layout/fragment_list_anime">
 
         <action
             android:id="@+id/action_to_search_anime_screen"
-            app:destination="@id/search_anime_fragment" />
+            app:destination="@id/search_anime_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_to_see_all_content_list_screen"
+            app:destination="@id/see_all_content_list_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="type"
+                app:argType="com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory$AnimeType"/>
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/search_anime_fragment"
-        android:name="com.example.animenation.dashboard.pages.home.search.SearchFragment"
+        android:name="com.imrkjoseph.animenation.dashboard.pages.home.search.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search"/>
 
+    <fragment
+        android:id="@+id/see_all_content_list_fragment"
+        android:name="com.imrkjoseph.animenation.dashboard.pages.home.all.SeeAllContentsListFragment"
+        android:label="SeeAllAnimeListFragment"
+        tools:layout="@layout/fragment_see_all_contents_list">
+
+        <argument
+            android:name="type"
+            app:argType="com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory$AnimeType"/>
+    </fragment>
+
     <action
-        android:id="@+id/action_to_anime_details_screen"
-        app:destination="@id/nav_graph_details">
+        android:id="@+id/action_to_details_screen"
+        app:destination="@id/nav_graph_details"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right">
 
         <argument
             android:name="argument"
-            app:argType="com.example.animenation.dashboard.shared.presentation.details.DetailsArguments"/>
+            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments"/>
     </action>
 
+    <include app:graph="@navigation/nav_graph_details" />
 </navigation>

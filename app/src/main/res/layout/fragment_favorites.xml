@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/favorites_main_constraint"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,13 +8,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    tools:context=".dashboard.pages.favorites.FavoritesFragment" >
+    android:animateLayoutChanges="true"
+    tools:context=".dashboard.pages.favorites.presentation.FavoritesFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lyError"
+        android:id="@+id/empty_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,13 +52,12 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/sf_pro_text_regular"
             android:gravity="center"
-            android:text="It seems that you haven't added\n any anime to the list"
+            android:text="@string/title_empty_description"
             android:textColor="@color/text_color"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="@+id/icon_empty"
             app:layout_constraintStart_toStartOf="@+id/icon_empty"
             app:layout_constraintTop_toBottomOf="@+id/tvError" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -71,16 +72,18 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <HorizontalScrollView
+            android:id="@+id/horizontal_category_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbarSize="0dp">
 
             <LinearLayout
+                android:id="@+id/favorites_linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/cgCategories"
+                    android:id="@+id/favorites_categories"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="true"
@@ -89,14 +92,29 @@
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip4"
+                        android:id="@+id/all_categories"
                         style="@style/CustomChipBtnStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="3dp"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="@string/title_all_categories"
+                        android:textSize="16dp"
                         android:checked="true"
+                        app:chipBackgroundColor="@color/chip_bg"
+                        app:chipCornerRadius="20dp"
+                        app:chipStrokeWidth="2dp"
+                        app:textEndPadding="7dp"
+                        app:textStartPadding="7dp" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/anime_category"
+                        style="@style/CustomChipBtnStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
                         android:fontFamily="@font/sf_pro_text_regular"
-                        android:text="All Categories"
+                        android:text="@string/title_anime"
                         android:textSize="16dp"
                         app:chipBackgroundColor="@color/chip_bg"
                         app:chipCornerRadius="20dp"
@@ -105,39 +123,22 @@
                         app:textStartPadding="7dp" />
 
                     <com.google.android.material.chip.Chip
+                        android:id="@+id/movie_category"
                         style="@style/CustomChipBtnStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="3dp"
                         android:fontFamily="@font/sf_pro_text_regular"
-                        android:text="Movie"
+                        android:text="@string/title_korean_series"
                         android:textSize="16dp"
                         app:chipBackgroundColor="@color/chip_bg"
                         app:chipCornerRadius="20dp"
                         app:chipStrokeWidth="2dp"
                         app:textEndPadding="7dp"
                         app:textStartPadding="7dp" />
-
-                    <com.google.android.material.chip.Chip
-                        style="@style/CustomChipBtnStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="3dp"
-                        android:fontFamily="@font/sf_pro_text_regular"
-                        android:text="Tv Series"
-                        android:textSize="16dp"
-                        app:chipBackgroundColor="@color/chip_bg"
-                        app:chipCornerRadius="20dp"
-                        app:chipStrokeWidth="2dp"
-                        app:textEndPadding="7dp"
-                        app:textStartPadding="7dp" />
-
                 </com.google.android.material.chip.ChipGroup>
-
             </LinearLayout>
-
         </HorizontalScrollView>
-
     </LinearLayout>
 
     <LinearLayout
@@ -188,20 +189,25 @@
             android:background="@drawable/search_icon"
             android:backgroundTint="@color/text_color"
             android:padding="10dp" />
-
     </LinearLayout>
 
-    <com.example.animenation.app.component.CustomRecyclerView
-        android:id="@+id/favorite_anime_list"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/favorites_scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout9" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
 
+        <com.imrkjoseph.animenation.app.component.CustomRecyclerView
+            android:id="@+id/favorites_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/favorites_category_item"/>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

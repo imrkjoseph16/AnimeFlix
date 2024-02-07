@@ -7,7 +7,7 @@
     <data>
         <variable
             name="episodes"
-            type="com.example.animenation.app.shared.dto.OtherEpisodesItemViewDto" />
+            type="com.imrkjoseph.animenation.app.shared.dto.OtherEpisodesItemViewDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/icon_play_circle_24px"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/white"
             android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/anime_image"
             app:layout_constraintEnd_toEndOf="@+id/anime_image"
@@ -48,10 +48,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@{episodes.getItemTitle(context)}"
             android:fontFamily="@font/sf_pro_text_medium"
             android:textColor="@color/text_color"
             android:textSize="14dp"
+            android:text="@{episodes.getItemTitle(context)}"
+            bind:visible="@{episodes.getItemTitle(context) != null}"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/anime_image"
@@ -65,11 +66,12 @@
             android:layout_marginEnd="16dp"
             android:ems="8"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@{episodes.episodeUrl}"
             android:textColorLink="@color/light_blue_600"
             android:autoLink="web"
             android:textSize="10dp"
             android:textStyle="bold"
+            android:text="@{episodes.getItemSubtitle(context)}"
+            bind:visible="@{episodes.getItemSubtitle(context) != null}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/anime_image"
             app:layout_constraintTop_toBottomOf="@+id/anime_episode_title" />
@@ -81,10 +83,13 @@
             android:layout_marginEnd="16dp"
             android:ems="8"
             android:fontFamily="@font/sf_pro_text_regular"
-            android:text="@{episodes.getItemSubtitle(context)}"
             android:textColor="@color/text_color"
             android:textSize="12dp"
+            android:autoLink="web"
+            android:linksClickable="true"
             android:textStyle="bold"
+            android:text="@{episodes.getItemDescription(context)}"
+            bind:visible="@{episodes.getItemDescription(context) != null}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/anime_image"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />

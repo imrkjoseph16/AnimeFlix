@@ -22,22 +22,21 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/grid_3_half"
             android:layout_gravity="center"
+            android:clickable="true"
+            android:padding="@dimen/grid_1_half"
+            android:focusable="true"
+            android:background="?android:selectableItemBackgroundBorderless"
             android:src="@drawable/icon_arrow_back_24px"/>
 
-        <androidx.appcompat.widget.SearchView
+        <com.imrkjoseph.animenation.app.component.CustomSearchView
             android:id="@+id/search_anime"
-            style="@style/SearchViewStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:inputType="text|textPersonName"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@drawable/et_background"
-            app:queryHint="Search"/>
+            android:layout_weight="1"/>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/filter_anime"
@@ -56,10 +55,11 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
-    <com.example.animenation.app.component.CustomRecyclerView
+    <com.imrkjoseph.animenation.app.component.CustomRecyclerView
         android:id="@+id/search_anime_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

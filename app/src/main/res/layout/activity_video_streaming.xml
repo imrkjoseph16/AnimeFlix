@@ -2,52 +2,45 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    tools:context=".dashboard.shared.presentation.video.presentation.VideoStreaming">
 
     <data>
         <variable
-            name="streamDetails"
-            type="com.example.animenation.dashboard.shared.presentation.video.dto.StreamingLink" />
-
-        <variable
-            name="canLoading"
-            type="Boolean" />
+            name="bottomList"
+            type="java.util.List&lt;Object>" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/parent_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/black"
-        android:animateLayoutChanges="true"
-        tools:context=".dashboard.shared.presentation.video.presentation.VideoStreaming">
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/video_player_motion_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/bottom_list_contents_scene">
 
-        <VideoView
-            android:id="@+id/stream_video"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            bind:streamLink="@{streamDetails.sources.get(1).url}"
+        <com.imrkjoseph.animenation.app.component.CustomPlayerView
+            android:id="@+id/video_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:controller_layout_id="@layout/widget_video_controls_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:show_buffering="when_playing"
+            app:use_controller="true" />
 
-        <include
-            android:id="@+id/widget_controls"
-            android:visibility="gone"
-            layout="@layout/widget_video_controls_item"/>
-
-        <ProgressBar
-            android:id="@+id/stream_loading"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:indeterminateTint="@color/red"
-            android:indeterminate="@{canLoading}"
-            bind:visible="@{canLoading}"
+        <com.imrkjoseph.animenation.app.component.CustomRecyclerView
+            android:id="@+id/episode_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/flow_view"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            bind:items="@{bottomList}"
+            tools:listitem="@layout/shared_card_details_small"/>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

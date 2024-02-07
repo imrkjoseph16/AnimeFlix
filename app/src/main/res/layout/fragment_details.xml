@@ -8,7 +8,11 @@
     <data>
         <variable
             name="details"
-            type="com.example.animenation.dashboard.shared.presentation.details.data.DetailsFullData" />
+            type="com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData" />
+
+        <variable
+            name="canShowCasts"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,7 +70,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/watch_anime"
+                            android:id="@+id/watch_content"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -74,7 +78,7 @@
                             android:drawableTint="@color/white"
                             android:paddingLeft="13dp"
                             android:paddingRight="13dp"
-                            android:text="@string/text_play"
+                            android:text="@string/title_watch"
                             android:fontFamily="@font/sf_pro_text_medium"
                             android:textColor="@color/white"
                             android:textSize="13sp"
@@ -187,20 +191,25 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/anime_title">
 
-                        <ImageButton
+                        <ImageView
                             android:id="@+id/add_favorites"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="20dp"
-                            android:background="@drawable/icon_mark_24px"
-                            android:padding="7dp" />
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:selectableItemBackgroundBorderless"
+                            android:src="@drawable/icon_mark_24px"
+                            android:padding="@dimen/grid_1" />
 
-                        <ImageButton
+                        <ImageView
                             android:id="@+id/share_content"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/icon_send_24px"
-                            android:padding="10dp" />
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:selectableItemBackgroundBorderless"
+                            android:src="@drawable/icon_send_24px"
+                            android:padding="@dimen/grid_2_half" />
 
                     </LinearLayout>
 
@@ -272,21 +281,74 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/sf_pro_text_regular"
-                            android:text="@{details.description}"
                             bind:visible="@{details.description != null}"
+                            bind:setHtmlText="@{details.description}"
                             android:textColor="@color/text_color" />
 
                     </LinearLayout>
 
-                    <com.example.animenation.app.component.CustomRecyclerView
-                        android:id="@+id/other_episode_list"
+                    <com.imrkjoseph.animenation.app.component.CustomRecyclerView
+                        android:id="@+id/cast_list"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:nestedScrollingEnabled="true"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout12"
+                        bind:visible="@{canShowCasts}"
+                        tools:listitem="@layout/shared_avatar_cast_item"/>
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/selection_tab"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="@+id/cast_list"
+                        app:layout_constraintStart_toStartOf="@+id/cast_list"
+                        app:layout_constraintTop_toBottomOf="@+id/cast_list"
+                        app:tabBackground="@color/main_background"
+                        app:tabIndicatorColor="@color/red"
+                        app:tabIndicatorFullWidth="true"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@color/red"
+                        app:tabSelectedTextColor="@color/red"
+                        app:tabTextColor="@color/place_holder"
+                        app:tabTextAppearance="@style/TabLayoutTheme"
+                        bind:visible="@{details.recommendations != null || details.relations != null}">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/main_background"
+                            android:text="Episodes" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/main_background"
+                            android:text="Related" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/main_background"
+                            android:text="Recommended" />
+
+                    </com.google.android.material.tabs.TabLayout>
+
+                    <com.imrkjoseph.animenation.app.component.CustomRecyclerView
+                        android:id="@+id/other_selection_list"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout12"
+                        app:layout_constraintTop_toBottomOf="@+id/selection_tab"
                         tools:listitem="@layout/shared_other_episodes_item" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -312,7 +374,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="@dimen/grid_0_5_half"
+                android:padding="@dimen/grid_1_half"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="#FFFFFF" />

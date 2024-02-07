@@ -7,13 +7,18 @@
 
     <fragment
         android:id="@+id/anime_details_fragment"
-        android:name="com.example.animenation.dashboard.shared.presentation.details.DetailsFragment"
-        android:label="AnimeDetailsFragment"
+        android:name="com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsFragment"
+        android:label="AnimeDetailsActivity"
         tools:layout="@layout/fragment_details">
 
         <argument
             android:name="argument"
-            app:argType="com.example.animenation.dashboard.shared.presentation.details.DetailsArguments"/>
+            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments"/>
+
+        <action
+            android:id="@+id/action_to_details_screen"
+            app:destination="@id/anime_details_fragment"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
@@ -23,18 +28,23 @@
 
         <argument
             android:name="argument"
-            app:argType="com.example.animenation.dashboard.shared.presentation.video.presentation.VideoStreamingArguments"/>
+            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.video.presentation.VideoStreamingArguments"/>
     </action>
 
     <activity
         android:id="@+id/anime_video_activity"
-        android:name="com.example.animenation.dashboard.shared.presentation.video.presentation.VideoStreaming"
+        android:name="com.imrkjoseph.animenation.dashboard.shared.presentation.video.presentation.VideoStreaming"
         android:label="AnimeVideo"
         tools:layout="@layout/activity_video_streaming">
 
         <argument
             android:name="argument"
-            app:argType="com.example.animenation.dashboard.shared.presentation.video.presentation.VideoStreamingArguments"/>
+            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.video.presentation.VideoStreamingArguments"/>
 
     </activity>
+
+    <action
+        android:id="@+id/action_close_details"
+        app:popUpTo="@id/nav_graph_details"
+        app:popUpToInclusive="true"/>
 </navigation>

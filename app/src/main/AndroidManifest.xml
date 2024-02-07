@@ -12,6 +12,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:largeHeap="true"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimeNation"
         tools:targetApi="31">
@@ -27,6 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".dashboard.shared.presentation.details.DetailsFragment"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false"/>
 
         <activity
             android:name=".dashboard.shared.presentation.video.presentation.VideoStreaming"

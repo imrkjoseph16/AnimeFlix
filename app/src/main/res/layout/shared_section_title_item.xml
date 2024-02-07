@@ -8,7 +8,7 @@
     <data>
         <variable
             name="dto"
-            type="com.example.animenation.app.shared.dto.SectionTitleItemViewDto" />
+            type="com.imrkjoseph.animenation.app.shared.dto.SectionTitleItemViewDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,12 +35,16 @@
             tools:text="Top Anime Sample Text" />
 
         <TextView
-            android:id="@+id/tvShow"
+            android:id="@+id/see_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/sf_pro_text_medium"
             android:textColor="@color/red"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/grid_1_half"
             android:text="@{dto.getRightTitle(context)}"
             android:layout_marginVertical="6dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView6"

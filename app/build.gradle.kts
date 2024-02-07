@@ -5,14 +5,15 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.animenation"
+    namespace = "com.imrkjoseph.animenation"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.animenation"
+        applicationId = "com.imrkjoseph.animenation"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -61,9 +62,9 @@ android {
 
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Navigation Component
@@ -76,6 +77,8 @@ dependencies {
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")
+    implementation("androidx.media3:media3-exoplayer-hls:1.2.1")
+    implementation("com.google.android.gms:play-services-cast:21.4.0")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     // Retrofit
@@ -92,7 +95,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
 
     // Shimmer Loading
     implementation("io.supercharge:shimmerlayout:2.1.0")
@@ -102,6 +105,25 @@ dependencies {
 
     // RxBinding
     implementation("com.jakewharton.rxbinding:rxbinding:0.4.0")
+
+    // Firebase
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-firestore:24.10.1")
+    implementation("com.google.firebase:firebase-storage:20.3.0")
+
+    // Fancy toast
+    implementation("io.github.shashank02051997:FancyToast:2.0.2")
+
+    // Leak Canary
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.8.1")
+
+    // Exo Player
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
+    implementation("androidx.media3:media3-exoplayer:1.3.0-alpha01")
+    implementation("androidx.media3:media3-ui:1.3.0-alpha01")
+
+    // Motion Layout
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     testImplementation("junit:junit:4.13.2")
 
