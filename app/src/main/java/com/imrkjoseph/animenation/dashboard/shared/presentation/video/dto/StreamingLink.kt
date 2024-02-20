@@ -37,5 +37,5 @@ data class Subtitle(
     val url: String? = null,
 
     @JsonProperty("lang")
-    val lang: String
+    val lang: String? = null
 )

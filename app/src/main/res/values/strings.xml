@@ -63,9 +63,10 @@
     <string name="hint_search">Search</string>
     <string name="hint_search_contents">Search anime, korean and movies…</string>
     <string name="title_all_categories">All Categories</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_empty_description">It seems that you haven\'t added\n any anime to the list</string>
+    <string name="title_episode">Episode: %1$d</string>
     <string name="title_episodes">Episodes</string>
 
 </resources>

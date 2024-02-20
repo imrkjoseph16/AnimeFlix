@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,10 +8,12 @@
     tools:background="@color/black">
 
     <View
-        android:id="@+id/leftScreen"
+        android:id="@+id/left_Screen"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/color_transparent"
+        android:focusable="true"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/centerGuide"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,13 +30,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/rightScreen"
+        android:id="@+id/right_Screen"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:focusable="true"
+        android:clickable="true"
         android:background="@color/color_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/centerGuide"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/video_title"
+        style="@style/TextViewShadow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_7_half"
+        android:fontFamily="@font/sf_pro_text_medium"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/video_episodes"
+        app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -43,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="@dimen/grid_7_half"
         android:padding="@dimen/grid_1_half"
         android:src="@drawable/icon_arrow_back_24px"
         android:clickable="true"
@@ -66,6 +81,19 @@
         app:layout_constraintTop_toTopOf="@+id/exo_ffwd" />
 
     <ImageView
+        android:id="@+id/previous_video"
+        style="@style/ExoStyledControls.Button.Center.Previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/grid_3_half"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/exo_rew_with_amount"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/exo_rew"
         style="@style/ExoStyledControls.Button.Center.RewWithAmount"
         android:layout_width="wrap_content"
@@ -73,15 +101,14 @@
         android:padding="@dimen/grid_3"
         android:clickable="true"
         android:focusable="true"
-        android:background="?selectableItemBackgroundBorderless"
-        android:layout_marginEnd="@dimen/grid_3"
+        android:background="?selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/centerGuide"
+        app:layout_constraintEnd_toStartOf="@+id/exo_play_pause"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/exo_play_pause"
-        style="@style/ExoMediaButton.Play"
+        style="@style/ExoStyledControls.Button.Center.PlayPause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/grid_1"
@@ -98,10 +125,9 @@
         android:padding="@dimen/grid_3"
         android:clickable="true"
         android:focusable="true"
-        android:background="?selectableItemBackgroundBorderless"
-        android:layout_marginStart="@dimen/grid_3"
+        android:background="?selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/centerGuide"
+        app:layout_constraintStart_toEndOf="@+id/exo_play_pause"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -115,6 +141,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/exo_ffwd"
         app:layout_constraintStart_toEndOf="@+id/exo_ffwd"
         app:layout_constraintTop_toTopOf="@+id/exo_ffwd" />
+
+    <ImageView
+        android:id="@+id/next_video"
+        style="@style/ExoStyledControls.Button.Center.Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/grid_3_half"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/exo_ffwd_with_amount"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/exo_position"
@@ -154,9 +193,10 @@
 
     <TextView
         android:id="@+id/video_episodes"
+        style="@style/TextViewShadow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="@dimen/grid_7_half"
         android:text="@string/title_episodes"
         android:background="?android:selectableItemBackground"
         android:layout_marginEnd="16dp"

@@ -19,7 +19,7 @@ fun<T: Any> setupCardDetailsSmallItemBinder(
     override fun bind(binder: SharedCardDetailsSmallBinding, item: T) {
         with(binder) {
             data = dtoRetriever(item)
-            root.setOnClickListener { onItemClick(item) }
+            cardImage.setOnClickListener { onItemClick(item) }
             executePendingBindings()
         }
     }

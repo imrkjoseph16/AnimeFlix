@@ -2,18 +2,28 @@ package com.imrkjoseph.animenation.app.component
 
 import android.content.Context
 import android.net.Uri
+import android.text.Html
 import android.util.AttributeSet
+import android.widget.TextView
+import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MimeTypes
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.text.CueGroup
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.common.util.Util
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.MediaSource
+import androidx.media3.exoplayer.source.MergingMediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.exoplayer.source.SingleSampleMediaSource
 import androidx.media3.ui.PlayerView
+import com.imrkjoseph.animenation.R
+import com.imrkjoseph.animenation.app.util.setVisible
 import javax.inject.Singleton
 
 @UnstableApi @Singleton
@@ -23,16 +33,25 @@ class CustomPlayerView(context: Context, attrs: AttributeSet?): PlayerView(conte
 
     var exoPlayer: ExoPlayer? = null
 
-    fun setupVideoPlayer(mediaUrl: String?) {
+    fun setupVideoPlayer(
+        mediaUrl: String?,
+        subtitleUrl: String? = null,
+        withSubtitle: Boolean = false,
+        customSubtitle: TextView? = null,
+    ) {
         mediaUrl?.let { url ->
             exoPlayer = ExoPlayer.Builder(context)
             .setSeekBackIncrementMs(10000)
             .setSeekForwardIncrementMs(10000)
             .build()
             .apply {
-                setMediaSource(getMediaSource(url = url))
+                setMediaSource(if (withSubtitle && url.contains("m3u8").not()) getMediaSourceWithSubtitle(
+                    url = url,
+                    subtitle = subtitleUrl
+                )
+                else getMediaSource(url = url))
                 prepare()
-                addListener(infoListener)
+                addListener(getInfoListener(customSubtitle = customSubtitle))
             }
         }
     }
@@ -49,20 +68,52 @@ class CustomPlayerView(context: Context, attrs: AttributeSet?): PlayerView(conte
         }
     }
 
-    private val infoListener = object: Player.Listener {
-        override fun onPlaybackStateChanged(playbackState: Int) {
-            super.onPlaybackStateChanged(playbackState)
-            when(playbackState){
-                Player.STATE_ENDED -> customPlayerInterface?.onMediaInfo(Player.STATE_ENDED)
-                Player.STATE_READY -> customPlayerInterface?.onMediaInfo(Player.STATE_READY)
-                Player.STATE_BUFFERING -> customPlayerInterface?.onMediaInfo(Player.STATE_BUFFERING)
+    private fun getMediaSourceWithSubtitle(url: String, subtitle: String?): MergingMediaSource {
+        val dataSourceFactory = DefaultHttpDataSource.Factory().apply {
+            setUserAgent(
+                Util.getUserAgent(
+                    context,
+                    context.getString(R.string.app_name)
+                )
+            )
+        }
+        val subtitleSource = SingleSampleMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(MediaItem.SubtitleConfiguration.Builder(Uri.parse(subtitle))
+            .setMimeType(MimeTypes.TEXT_VTT)
+            .setLanguage("en")
+            .setSelectionFlags(C.SELECTION_FLAG_DEFAULT)
+            .build(), C.TIME_UNSET)
+
+        return MergingMediaSource(getMediaSource(url = url), subtitleSource)
+    }
+
+    private fun getInfoListener(customSubtitle: TextView?): Player.Listener {
+        val infoListener = object: Player.Listener {
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                super.onPlaybackStateChanged(playbackState)
+                when(playbackState){
+                    Player.STATE_ENDED -> customPlayerInterface?.onMediaInfo(Player.STATE_ENDED)
+                    Player.STATE_READY -> customPlayerInterface?.onMediaInfo(Player.STATE_READY)
+                    Player.STATE_BUFFERING -> customPlayerInterface?.onMediaInfo(Player.STATE_BUFFERING)
+                }
+            }
+
+            override fun onPlayerError(error: PlaybackException) {
+                super.onPlayerError(error)
+                customPlayerInterface?.onMediaInfo(Player.STATE_ENDED)
+            }
+
+            override fun onCues(cueGroup: CueGroup) {
+                super.onCues(cueGroup)
+                if (cueGroup.cues.isNotEmpty()) {
+                    customSubtitle?.setVisible(canShow = true)
+                    customSubtitle?.text = Html.fromHtml(cueGroup.cues[0].text.toString())
+                } else {
+                    customSubtitle?.setVisible(canShow = false)
+                }
             }
         }
-
-        override fun onPlayerError(error: PlaybackException) {
-            super.onPlayerError(error)
-            customPlayerInterface?.onMediaInfo(Player.STATE_ENDED)
-        }
+        return infoListener
     }
 
     fun playVideo(){

@@ -2,6 +2,7 @@ package com.imrkjoseph.animenation.dashboard.shared.data.client
 
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.movies.MovieDetailsResponse
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.movies.MoviesResponse
+import com.imrkjoseph.animenation.dashboard.shared.presentation.video.dto.FileMoonStreamLink
 import com.imrkjoseph.animenation.dashboard.shared.presentation.video.dto.StreamingLink
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -29,6 +30,16 @@ interface MoviesApiClient {
         @Path("movieId")
         movieId: String,
         @Query("id")
-        showId: String
+        showId: String? = null
     ) : StreamingLink
+
+    @GET("vidsrc/{movieId}")
+    suspend fun getAlternativeMovieStreamLink(
+        @Path("movieId")
+        movieId: String,
+        @Query("s")
+        season: Int? = null,
+        @Query("e")
+        episode: Int? = null
+    ) : FileMoonStreamLink
 }

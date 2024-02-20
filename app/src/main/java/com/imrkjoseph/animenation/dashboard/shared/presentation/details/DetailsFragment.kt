@@ -18,6 +18,7 @@ import com.imrkjoseph.animenation.app.shared.binder.component.setupHorizontalLis
 import com.imrkjoseph.animenation.app.shared.binder.component.setupOtherEpisodesItemBinder
 import com.imrkjoseph.animenation.app.shared.binder.component.setupOtherRelatedItemBinder
 import com.imrkjoseph.animenation.app.shared.binder.component.setupSectionTitleItemBinder
+import com.imrkjoseph.animenation.app.util.Default.Companion.DEFAULT_SELECTED_EPISODE
 import com.imrkjoseph.animenation.app.util.EntryPointType
 import com.imrkjoseph.animenation.app.util.showFancyToast
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.favorites.FavoritesDetailsFullData
@@ -61,7 +62,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
         watchContent.setOnClickListener {
             goToStreamVideoScreen(
                 episodeId = getPairDetailsId().first,
-                showId = getPairDetailsId().second
+                showId = getPairDetailsId().second,
+                selectedEpisode = DEFAULT_SELECTED_EPISODE
             )
         }
 
@@ -106,13 +108,13 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
     }
 
     private fun FragmentDetailsBinding.getPairDetailsId(): Pair<String?, String?> {
-        val episodeId = details?.episodes?.let { episode ->
-            episode[0].episodeId
-        } ?: details?.episodeId
+        val episodeId = if (details?.episodes?.isNotEmpty() == true)
+            details?.episodes?.get(0)?.episodeId
+        else details?.episodeId
 
-        val showId = details?.episodes?.let { episode ->
-            episode[0].showId
-        } ?: details?.id
+        val showId = if (details?.episodes?.isNotEmpty() == true)
+            details?.episodes?.get(0)?.showId
+        else details?.id
 
         return Pair(first = episodeId, second = showId)
     }
@@ -132,7 +134,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 onItemClick = { episode ->
                     goToStreamVideoScreen(
                         episodeId = episode.itemEpisodeId,
-                        showId = episode.itemShowId
+                        showId = episode.itemShowId,
+                        selectedEpisode = episode.currentEpisode ?: DEFAULT_SELECTED_EPISODE
                     )
                 }
             ))
@@ -185,7 +188,11 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 }
             }
         }
-        navArgs.argument.verifyDetailsState()
+        sharedViewModel.verifyDetailsState(
+            navArgs.argument.entryPointType,
+            navArgs.argument.detailsId,
+            navArgs.argument.typeOfMovie
+        )
     }
 
     private fun RecyclerView.addScrollObservable() {
@@ -207,19 +214,6 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
         }
     }
 
-    private fun DetailsArguments.verifyDetailsState() {
-        with(sharedViewModel) {
-            when(entryPointType) {
-                EntryPointType.ANIME -> getAnimeDetails(detailsId = detailsId)
-                EntryPointType.KOREAN -> getKoreanDetails(seriesId = detailsId)
-                else -> getMovieDetails(
-                    movieId = detailsId,
-                    typeOfMovie = typeOfMovie.orEmpty()
-                )
-            }
-        }
-    }
-
     private fun showFancyToastError(message: String) {
         showFancyToast(
             message = message,
@@ -230,15 +224,21 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
 
     private fun goBackToPreviousScreen() = findNavController().popBackStack()
 
-    private fun goToStreamVideoScreen(episodeId: String?, showId: String?) {
+    private fun goToStreamVideoScreen(
+        episodeId: String?,
+        showId: String?,
+        selectedEpisode: Int
+    ) {
         episodeId?.let { id ->
             findNavController().navigate(
                 directions = NavGraphDetailsDirections.actionToAnimeVideoScreen(
                     argument = VideoStreamingArguments(
+                        detailsId = navArgs.argument.detailsId,
+                        typeOfMovie = navArgs.argument.typeOfMovie,
                         episodeId = id,
                         showId = showId,
                         entryPointType = navArgs.argument.entryPointType,
-                        details = binding.details ?: null
+                        selectedEpisode = selectedEpisode
                     )
                 )
             )

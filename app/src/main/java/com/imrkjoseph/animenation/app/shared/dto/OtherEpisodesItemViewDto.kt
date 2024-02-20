@@ -14,7 +14,8 @@ data class OtherEpisodesItemViewDto(
     val itemDescription: TextLine = TextLine.EMPTY,
     val itemImageUrl: String? = null,
     val itemShowId: String? = null,
-    val itemEpisodeId: String
+    val itemEpisodeId: String,
+    val currentEpisode: Int? = 1
 ) {
     fun getItemTitle(context: Context) = itemTitle.getString(context)
 

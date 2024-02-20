@@ -7,6 +7,10 @@
 
     <data>
         <variable
+            name="videoDetails"
+            type="com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData" />
+
+        <variable
             name="bottomList"
             type="java.util.List&lt;Object>" />
     </data>
@@ -26,8 +30,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:show_buffering="when_playing"
-            app:use_controller="true" />
+            app:show_buffering="when_playing" />
+
+        <TextView
+            android:id="@+id/custom_subtitle"
+            style="@style/ExoStyledControls.Button.Bottom.CC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_2"
+            android:fontFamily="@font/sf_pro_text_medium"
+            android:textColor="@color/white"
+            android:textSize="@dimen/grid_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.imrkjoseph.animenation.app.component.CustomRecyclerView
             android:id="@+id/episode_list"

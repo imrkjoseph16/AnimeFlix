@@ -10,6 +10,8 @@ import com.imrkjoseph.animenation.app.util.coRunCatching
 import com.imrkjoseph.animenation.dashboard.shared.domain.AnimeUseCase
 import com.imrkjoseph.animenation.dashboard.shared.domain.KoreanUseCase
 import com.imrkjoseph.animenation.dashboard.shared.domain.MoviesUseCase
+import com.imrkjoseph.animenation.dashboard.shared.domain.MoviesUseCase.VideoStreamRequest
+import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.presentation.video.dto.StreamingLink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,51 +41,94 @@ class VideoStreamingViewModel @Inject constructor(
     private val _uiItems = MutableStateFlow(value = VideoStreamingUiItems())
     val uiItems = _uiItems.asStateFlow()
 
-    fun getStreamingState() {
+    var currentEpisode = args.selectedEpisode
+
+    fun getStreamingState(
+        data: VideoStreamRequest
+    ) {
         when(args.entryPointType) {
-            EntryPointType.ANIME -> getAnimeStreamLink(episodeId = args.episodeId)
-            EntryPointType.KOREAN -> getKoreanStreamLink(episodeId = args.episodeId)
-            else -> getMovieStreamLink(episodeId = args.episodeId, showId = args.showId)
-        }
-
-        itemFactory.prepareList(
-            entryPoint = args.entryPointType,
-            result = args.details
-        ).also { episodeItems ->
-            _uiItems.update { it.copy(episodeItems = episodeItems) }
+            EntryPointType.ANIME -> getAnimeStreamLink(episodeId = data.episodeId)
+            EntryPointType.KOREAN -> getKoreanStreamLink(episodeId = data.episodeId)
+            else -> getMovieStreamLink(data = data)
         }
     }
 
-    private fun getAnimeStreamLink(episodeId: String) {
+    private fun getAnimeStreamLink(episodeId: String?) {
         viewModelScope.launch {
             coRunCatching {
-                animeUseCase.getStreamingLink(episodeId = episodeId)
+                animeUseCase.getStreamingLink(episodeId = episodeId ?: error("episodeId not found"))
             }.onSuccess { result ->
                 _streamLink.value = result
             }
         }
     }
 
-    private fun getKoreanStreamLink(episodeId: String) {
+    private fun getKoreanStreamLink(episodeId: String?) {
         viewModelScope.launch {
             coRunCatching {
-                koreanUseCase.getStreamingLink(episodeId = episodeId)
+                koreanUseCase.getStreamingLink(episodeId = episodeId ?: error("episodeId not found"))
             }.onSuccess { result ->
                 _streamLink.value = result
             }
         }
     }
 
-    private fun getMovieStreamLink(episodeId: String, showId: String?) {
+    private fun getMovieStreamLink(
+        data: VideoStreamRequest
+    ) {
         viewModelScope.launch {
             coRunCatching {
                 moviesUseCase.getStreamingLink(
-                    movieId = episodeId,
-                    showId = showId ?: error("showId not found")
+                    VideoStreamRequest(
+                        episodeId = data.episodeId,
+                        showId = data.showId
+                    )
+                )
+            }.onSuccess { result ->
+                _streamLink.value = result
+            }.onFailure {
+                // If the streaming link from TMDB was failed,
+                // we can check if the alternative streaming link,
+                // have available media resources.
+                getAlternativeStreamLink(
+                    detailsId = data.detailsId,
+                    isSeries = data.isStreamSeries,
+                    currentEpisode = currentEpisode
+                )
+            }
+        }
+    }
+
+    private fun getAlternativeStreamLink(
+        detailsId: String?,
+        isSeries: Boolean,
+        currentEpisode: Int
+    ) {
+        viewModelScope.launch {
+            coRunCatching {
+                moviesUseCase.getStreamingLink(
+                    isStreamFailed = true,
+                    data = VideoStreamRequest(
+                        detailsId = detailsId,
+                        season = if (isSeries) 1 else null,
+                        episode = if (isSeries) currentEpisode else null,
+                    )
                 )
             }.onSuccess { result ->
                 _streamLink.value = result
             }
+        }
+    }
+
+    fun getUiEpisodeItems(
+        details: DetailsFullData?
+    ) {
+        itemFactory.prepareList(
+            entryPoint = args.entryPointType,
+            result = details,
+            currentEpisode = currentEpisode
+        ).also { episodeItems ->
+            _uiItems.update { it.copy(episodeItems = episodeItems) }
         }
     }
 }

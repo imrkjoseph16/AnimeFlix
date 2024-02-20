@@ -8,6 +8,8 @@ import com.imrkjoseph.animenation.app.util.EntryPointType
  * Describes data rendered in [com.imrkjoseph.animenation.R.layout.shared_card_details_small]
  * */
 data class CardDetailsSmallItemViewDto(
+    val detailsId: String,
+    val typeOfMovie: String? = null,
     val itemId: String,
     val showId: String? = null,
     val title: String? = null,
@@ -16,7 +18,9 @@ data class CardDetailsSmallItemViewDto(
     val itemStatus: String? = null,
     val itemDescription: String? = null,
     val itemImageUrl: String? = null,
-    val itemEntryPointType: EntryPointType
+    val itemEntryPointType: EntryPointType,
+    val cardVisible: Boolean = true,
+    val itemPosition: Int = 1
 ) {
     fun getComputedRating() = ((rating?.times(10) ?: 0) / 100).toFloat()
 }

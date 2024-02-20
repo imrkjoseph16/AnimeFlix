@@ -108,6 +108,7 @@ class DetailsItemFactory @Inject constructor() {
                     itemEpisodeId = details.episodeId ?: episode.episodeId,
                     itemShowId = episode.showId ?: details.id,
                     itemImageUrl = details.image,
+                    currentEpisode = episode.episode ?: episode.number
                 )
             )
         }

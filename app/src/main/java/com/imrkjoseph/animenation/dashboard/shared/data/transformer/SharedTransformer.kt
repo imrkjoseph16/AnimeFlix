@@ -17,6 +17,10 @@ import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.Epi
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.Name
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.Title
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.VoiceActor
+import com.imrkjoseph.animenation.dashboard.shared.presentation.video.dto.FileMoonStreamLink
+import com.imrkjoseph.animenation.dashboard.shared.presentation.video.dto.Source
+import com.imrkjoseph.animenation.dashboard.shared.presentation.video.dto.StreamingLink
+import com.imrkjoseph.animenation.dashboard.shared.presentation.video.dto.Subtitle
 import javax.inject.Inject
 
 class SharedTransformer @Inject constructor() {
@@ -241,5 +245,20 @@ class SharedTransformer @Inject constructor() {
                     )
                 }
             } ?: emptyList()
+        )
+
+    fun transformAlternativeStreamResponse(response: FileMoonStreamLink?) =
+        StreamingLink(
+            sources = listOf(
+                element = Source(
+                    url = response?.data?.file ?: error("no streaming link found")
+                )
+            ),
+            subtitles = response.data.sub?.map { sub ->
+                Subtitle(
+                    url = sub.file,
+                    lang = sub.lang
+                )
+            }
         )
 }

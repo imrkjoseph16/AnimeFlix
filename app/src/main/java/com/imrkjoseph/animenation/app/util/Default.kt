@@ -2,9 +2,10 @@ package com.imrkjoseph.animenation.app.util
 
 class Default {
     companion object {
-        const val ANIME_BASE_URL = "https://anime-server-peach.vercel.app/meta/anilist/"
-        const val SERIES_BASE_URL = "https://anime-server-peach.vercel.app/movies/dramacool/"
-        const val MOVIES_BASE_URL = "https://anime-server-peach.vercel.app/meta/tmdb/"
+        const val ANIME_BASE_URL = "https://anime-nation-server.vercel.app/meta/anilist/"
+        const val SERIES_BASE_URL = "https://anime-nation-server.vercel.app/movies/dramacool/"
+        const val MOVIES_BASE_URL = "https://anime-nation-server.vercel.app/meta/tmdb/"
+        const val MOVIES_VID_ALTERNATIVE_URL = "https://api-movie-source.vercel.app"
         const val VIDS_STREAMING = "vidstreaming"
         const val ASIAN_LOAD = "asianload"
         const val ANIME_DEFAULT_SEARCH = "Korean"
@@ -24,6 +25,9 @@ class Default {
         const val MONTH_DAY_YEAR_TIME = "MMM dd,yyyy - h:mm a"
 
         const val TOTAL_EPISODES = "Total Episodes:"
+
+        const val DEFAULT_MOVIE = "Movie"
+        const val DEFAULT_SELECTED_EPISODE = 1
     }
 }
 enum class EntryPointType {

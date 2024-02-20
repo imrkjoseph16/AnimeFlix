@@ -2,15 +2,18 @@ package com.imrkjoseph.animenation.dashboard.shared.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.EntryPointType.ANIME
+import com.imrkjoseph.animenation.app.util.EntryPointType.KOREAN
 import com.imrkjoseph.animenation.app.util.coRunCatching
+import com.imrkjoseph.animenation.dashboard.shared.data.dto.favorites.FavoritesDetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.domain.AnimeUseCase
 import com.imrkjoseph.animenation.dashboard.shared.domain.KoreanUseCase
-import com.imrkjoseph.animenation.dashboard.shared.domain.SharedUseCase
-import com.imrkjoseph.animenation.dashboard.shared.data.dto.favorites.FavoritesDetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.domain.MoviesUseCase
+import com.imrkjoseph.animenation.dashboard.shared.domain.SharedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,10 +25,25 @@ class SharedViewModel @Inject constructor(
     private val moviesUseCase: MoviesUseCase
 ): ViewModel() {
 
-    private val _sharedState = MutableStateFlow(SharedState())
-    val sharedState = _sharedState.asStateFlow()
+    private var _sharedState = MutableSharedFlow<SharedState>()
+    var sharedState = _sharedState.asSharedFlow()
 
-    fun getAnimeDetails(detailsId: String) {
+    fun verifyDetailsState(
+        entryPoint: EntryPointType,
+        detailsId: String,
+        typeOfMovie: String?
+    ) {
+        when(entryPoint) {
+            ANIME -> getAnimeDetails(detailsId = detailsId)
+            KOREAN -> getKoreanDetails(seriesId = detailsId)
+            else -> getMovieDetails(
+                movieId = detailsId,
+                typeOfMovie = typeOfMovie.orEmpty()
+            )
+        }
+    }
+
+    private fun getAnimeDetails(detailsId: String) {
         viewModelScope.launch {
             coRunCatching {
                 animeUseCase.getAnimeDetails(animeId = detailsId)
@@ -37,7 +55,7 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun getKoreanDetails(seriesId: String) {
+    private fun getKoreanDetails(seriesId: String) {
         viewModelScope.launch {
             coRunCatching {
                 koreanUseCase.getSeriesDetails(seriesId = seriesId)
@@ -49,7 +67,7 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun getMovieDetails(movieId: String, typeOfMovie: String) {
+    private fun getMovieDetails(movieId: String, typeOfMovie: String) {
         viewModelScope.launch {
             coRunCatching {
                 moviesUseCase.getMovieDetails(movieId = movieId, typeOfMovie = typeOfMovie)
@@ -74,6 +92,8 @@ class SharedViewModel @Inject constructor(
     }
 
     private fun updateUiState(state: SharedState) {
-        _sharedState.value = state
+        viewModelScope.launch {
+            _sharedState.emit(value = state)
+        }
     }
 }
