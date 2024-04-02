@@ -1,4 +1,4 @@
-package com.imrkjoseph.animenation.dashboard.shared.presentation.details
+package com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -24,8 +24,6 @@ class DetailsViewModel @Inject constructor(
     private val itemFactory: DetailsItemFactory
 ): ViewModel() {
 
-    private val navArgs = DetailsFragmentArgs.fromSavedStateHandle(savedStateHandle).argument
-
     private val _uiState = MutableStateFlow(DetailsUiModel())
     val uiState = _uiState.asStateFlow()
 
@@ -48,7 +46,8 @@ class DetailsViewModel @Inject constructor(
     fun getUiSelectionItems(
         result: DetailsFullData,
         onBottomScrolled: Boolean = false,
-        selectedType: DetailsOtherSelection
+        selectedType: DetailsOtherSelection,
+        navArgs: DetailsArguments
     ) {
         // We should reset "currentEpisodeItems" when the user,
         // select in the selection categories so the,
@@ -71,14 +70,18 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun exploreAdditionalEpisodes(selectedType: DetailsOtherSelection) {
+    fun exploreAdditionalEpisodes(
+        selectedType: DetailsOtherSelection,
+        navArgs: DetailsArguments
+    ) {
         viewModelScope.launch {
             currentEpisodeItems += 10
             _uiState.value.detailsData?.let {
                 getUiSelectionItems(
                     result = it,
                     onBottomScrolled = true,
-                    selectedType = selectedType
+                    selectedType = selectedType,
+                    navArgs = navArgs
                 )
             }
         }

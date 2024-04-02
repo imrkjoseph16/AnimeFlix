@@ -15,7 +15,7 @@ import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory
 import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.POPULARANIME
 import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.RECENTANIME
 import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.TOPANIME
-import com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments
+import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments
 import com.imrkjoseph.animenation.databinding.FragmentSeeAllContentsListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

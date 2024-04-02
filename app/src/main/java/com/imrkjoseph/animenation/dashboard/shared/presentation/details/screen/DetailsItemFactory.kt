@@ -1,4 +1,4 @@
-package com.imrkjoseph.animenation.dashboard.shared.presentation.details
+package com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen
 
 import com.imrkjoseph.animenation.R
 import com.imrkjoseph.animenation.app.component.TextLine
@@ -14,8 +14,8 @@ import com.imrkjoseph.animenation.app.shared.dto.SectionTitleItemViewDto
 import com.imrkjoseph.animenation.app.util.Default.Companion.TOTAL_EPISODES
 import com.imrkjoseph.animenation.app.util.EntryPointType
 import com.imrkjoseph.animenation.app.util.ViewUtil.Companion.getRandomRatings
-import com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsOtherSelection.EPISODES
-import com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsOtherSelection.RELATED
+import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsOtherSelection.EPISODES
+import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsOtherSelection.RELATED
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.Character
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.Episode

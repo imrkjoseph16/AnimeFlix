@@ -1,4 +1,4 @@
-package com.imrkjoseph.animenation.dashboard.shared.presentation.details
+package com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen
 
 import android.os.Parcelable
 import com.imrkjoseph.animenation.app.util.EntryPointType

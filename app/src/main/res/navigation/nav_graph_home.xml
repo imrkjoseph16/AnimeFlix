@@ -52,7 +52,7 @@
 
     <action
         android:id="@+id/action_to_details_screen"
-        app:destination="@id/nav_graph_details"
+        app:destination="@id/main_details_screen"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
@@ -60,8 +60,17 @@
 
         <argument
             android:name="argument"
-            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments"/>
+            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments"/>
     </action>
 
-    <include app:graph="@navigation/nav_graph_details" />
+    <activity
+        android:id="@+id/main_details_screen"
+        android:name="com.imrkjoseph.animenation.dashboard.shared.presentation.details.MainDetailsHandler"
+        android:label="activity_main_details_handler"
+        tools:layout="@layout/activity_main_details_handler" >
+
+        <argument
+            android:name="argument"
+            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments"/>
+    </activity>
 </navigation>

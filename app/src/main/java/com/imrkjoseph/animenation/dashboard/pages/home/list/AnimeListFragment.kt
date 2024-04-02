@@ -16,7 +16,7 @@ import com.imrkjoseph.animenation.dashboard.pages.home.HomeSharedViewModel
 import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType
 import com.imrkjoseph.animenation.dashboard.pages.home.list.TopAnimeAdapter.OnCarouselItemClick
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.anime.Result
-import com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments
+import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments
 import com.imrkjoseph.animenation.databinding.FragmentListAnimeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

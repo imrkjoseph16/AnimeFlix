@@ -10,7 +10,7 @@ import com.imrkjoseph.animenation.app.foundation.BaseFragment
 import com.imrkjoseph.animenation.app.shared.binder.component.setupSearchAnimeItemBinder
 import com.imrkjoseph.animenation.app.shared.binder.data.SearchAnimeItem
 import com.imrkjoseph.animenation.app.util.EntryPointType
-import com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments
+import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments
 import com.imrkjoseph.animenation.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

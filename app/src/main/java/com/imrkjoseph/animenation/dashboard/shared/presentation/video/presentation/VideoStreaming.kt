@@ -56,7 +56,7 @@ class VideoStreaming : BaseActivity<ActivityVideoStreamingBinding>(bindingInflat
 
     private fun ActivityVideoStreamingBinding.configureViews() {
         with(videoView) {
-            setPlayerInterface(this@VideoStreaming)
+            setPlayerInterface(playerInterface = this@VideoStreaming)
             getControlsView(appId.back).setOnClickListener { finish() }
             getControlsView(appId.video_episodes).setOnClickListener {
                 setEpisodesTransition()

@@ -1,4 +1,4 @@
-package com.imrkjoseph.animenation.dashboard.shared.presentation.details
+package com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -92,7 +92,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 details?.let {
                     viewModel.getUiSelectionItems(
                         result = it,
-                        selectedType = selectedType
+                        selectedType = selectedType,
+                        navArgs = navArgs.argument
                     )
                 }
             }
@@ -201,7 +202,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 super.onScrollStateChanged(recyclerView, newState)
                 if (recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN).not()
                     && recyclerView.scrollState == RecyclerView.SCROLL_STATE_IDLE) {
-                    viewModel.exploreAdditionalEpisodes(selectedType = selectedType)
+                    viewModel.exploreAdditionalEpisodes(selectedType = selectedType, navArgs = navArgs.argument)
                 }
             }
         })
@@ -222,7 +223,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
         )
     }
 
-    private fun goBackToPreviousScreen() = findNavController().popBackStack()
+    private fun goBackToPreviousScreen() = requireActivity().finish()
 
     private fun goToStreamVideoScreen(
         episodeId: String?,
@@ -260,7 +261,8 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 viewModel.getCastItems(cast = it.characters, actors = it.casts)
                 viewModel.getUiSelectionItems(
                     result = it,
-                    selectedType = selectedType
+                    selectedType = selectedType,
+                    navArgs = navArgs.argument
                 )
             }
             executePendingBindings()

@@ -16,9 +16,12 @@ import com.imrkjoseph.animenation.app.shared.binder.component.SpaceItemViewDtoBi
 import com.imrkjoseph.animenation.app.shared.binder.component.setupHorizontalListItemBinder
 import com.imrkjoseph.animenation.app.shared.binder.component.setupSectionTitleItemBinder
 import com.imrkjoseph.animenation.app.shared.binder.component.setupVerticalListItemBinder
+import com.imrkjoseph.animenation.app.util.setVisible
 import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType
-import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.*
-import com.imrkjoseph.animenation.dashboard.shared.presentation.details.DetailsArguments
+import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.ANIME
+import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.KOREAN
+import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.MOVIES
+import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments
 import com.imrkjoseph.animenation.databinding.FragmentExploreContentsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -96,6 +99,8 @@ class ExploreFragment : BaseFragment<FragmentExploreContentsBinding>(bindingInfl
         with(binding) {
             uiItems = this@updateUi
             executePendingBindings()
+            loadingWidget.setVisible(canShow = exploreLoading)
+            searchScrollView.setVisible(canShow = exploreLoading.not())
             if (exploreLoading.not()) searchContents.onResultFinished.invoke()
         }
     }

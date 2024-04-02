@@ -1,7 +1,6 @@
 package com.imrkjoseph.animenation.dashboard.pages.explore.presentation
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imrkjoseph.animenation.app.shared.widget.SingleLiveEvent
@@ -11,20 +10,18 @@ import com.imrkjoseph.animenation.app.util.Default.Companion.MOVIE_DEFAULT_SEARC
 import com.imrkjoseph.animenation.app.util.coRunCatching
 import com.imrkjoseph.animenation.dashboard.pages.explore.data.ExploreResultData
 import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.Companion.findItemViewPosition
-import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.ANIME
-import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.MOVIES
-import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.KOREAN
 import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType
+import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.ANIME
 import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.EXPLORE
+import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.KOREAN
+import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.MOVIES
 import com.imrkjoseph.animenation.dashboard.shared.domain.AnimeUseCase
 import com.imrkjoseph.animenation.dashboard.shared.domain.KoreanUseCase
 import com.imrkjoseph.animenation.dashboard.shared.domain.MoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
@@ -78,6 +75,7 @@ class ExploreViewModel @Inject constructor(
         if (explorePreloadedJob?.isActive == true) explorePreloadedJob?.cancel()
         explorePreloadedJob = viewModelScope.launch {
             coRunCatching {
+                updateLoading(loading = true)
                 when(category) {
                     ANIME -> animeUseCase.searchAnime(animeName = ANIME_DEFAULT_SEARCH)
                     KOREAN -> koreanUseCase.searchSeries(seriesName = KOREAN_DEFAULT_SEARCH)
@@ -89,6 +87,7 @@ class ExploreViewModel @Inject constructor(
                 getResponseResult(exploreType = EXPLORE, response = result)
             }.onFailure {
                 handleFailure(error = it)
+                updateLoading(loading = false)
             }
         }
     }
@@ -114,6 +113,7 @@ class ExploreViewModel @Inject constructor(
     }
 
     private fun searchAnimeResults(searchName: String) {
+        if (searchAnimeJob?.isActive == true) searchAnimeJob?.cancel()
         searchAnimeJob = viewModelScope.launch {
             updateLoading(loading = true)
 
@@ -130,6 +130,7 @@ class ExploreViewModel @Inject constructor(
     }
 
     private fun searchKoreanResults(searchName: String) {
+        if (searchKoreanJob?.isActive == true) searchKoreanJob?.cancel()
         searchKoreanJob = viewModelScope.launch {
             updateLoading(loading = true)
 
@@ -146,6 +147,7 @@ class ExploreViewModel @Inject constructor(
     }
 
     private fun searchMovieResults(searchName: String) {
+        if (searchMoviesJob?.isActive == true) searchMoviesJob?.cancel()
         searchMoviesJob = viewModelScope.launch {
             updateLoading(loading = true)
 
