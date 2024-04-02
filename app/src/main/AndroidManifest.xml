@@ -11,22 +11,37 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AnimeNation"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
 
         <activity
-            android:name=".main.MainScreenHandler"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="true">
+            android:name=".dashboard.shared.presentation.details.MainDetailsHandler"
+            android:exported="false" />
 
+        <activity
+            android:name=".main.MainScreenHandler"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".dashboard.shared.presentation.details.screen.DetailsFragment"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".dashboard.shared.presentation.video.presentation.VideoStreaming"
+            android:exported="false"
+            android:screenOrientation="sensorLandscape"
+            android:supportsPictureInPicture="true"
+            android:windowSoftInputMode="adjustPan" />
+    </application>
 </manifest>

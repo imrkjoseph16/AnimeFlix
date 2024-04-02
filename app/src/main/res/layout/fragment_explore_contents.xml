@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".dashboard.pages.explore.presentation.ExploreFragment">
+
+    <data>
+        <variable
+            name="uiItems"
+            type="com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreUiItems" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_background"
+        android:fitsSystemWindows="false">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?actionBarSize"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.imrkjoseph.animenation.app.component.CustomSearchView
+                android:id="@+id/search_contents"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ibFilter"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="#FDECEE"
+                app:cardCornerRadius="15dp"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/icon_settings_24px"/>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/explore_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            android:layout_marginTop="@dimen/grid_1"
+            android:paddingHorizontal="@dimen/grid_1"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/anime_category"
+                style="@style/CustomChipBtnStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:checked="true"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/title_anime"
+                android:textSize="16dp"
+                app:chipBackgroundColor="@color/chip_bg"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="7dp"
+                app:textStartPadding="7dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/korean_category"
+                style="@style/CustomChipBtnStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/title_korean_series"
+                android:textSize="16dp"
+                app:chipBackgroundColor="@color/chip_bg"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="7dp"
+                app:textStartPadding="7dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/movie_category"
+                style="@style/CustomChipBtnStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:text="@string/title_movies"
+                android:textSize="16dp"
+                app:chipBackgroundColor="@color/chip_bg"
+                app:chipCornerRadius="20dp"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="7dp"
+                app:textStartPadding="7dp" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/search_scroll_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/explore_categories" >
+
+            <com.imrkjoseph.animenation.app.component.CustomRecyclerView
+                android:id="@+id/search_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:paddingTop="10dp"
+                app:items="@{uiItems.uiListItems}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/loading_widget"
+            android:indeterminateTint="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

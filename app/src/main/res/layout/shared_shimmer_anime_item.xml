@@ -5,7 +5,7 @@
     <data>
         <variable
             name="dto"
-            type="com.example.animenation.app.shared.dto.ShimmerLoadingItemViewDto" />
+            type="com.imrkjoseph.animenation.app.shared.dto.ShimmerLoadingItemViewDto" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

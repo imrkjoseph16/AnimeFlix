@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "289227627242",
+    "project_id": "animeflix-e4486",
+    "storage_bucket": "animeflix-e4486.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:289227627242:android:851ce16bd51730af689593",
+        "android_client_info": {
+          "package_name": "com.imrkjoseph.animenation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdPflTY81IahyFjQz88G_U0of9RTYxnVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    tools:context=".dashboard.shared.presentation.video.presentation.VideoStreaming">
+
+    <data>
+        <variable
+            name="videoDetails"
+            type="com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData" />
+
+        <variable
+            name="bottomList"
+            type="java.util.List&lt;Object>" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/video_player_motion_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/bottom_list_contents_scene">
+
+        <com.imrkjoseph.animenation.app.component.CustomPlayerView
+            android:id="@+id/video_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:controller_layout_id="@layout/widget_video_controls_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:show_buffering="when_playing" />
+
+        <TextView
+            android:id="@+id/custom_subtitle"
+            style="@style/ExoStyledControls.Button.Bottom.CC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/grid_2"
+            android:fontFamily="@font/sf_pro_text_medium"
+            android:textColor="@color/white"
+            android:textSize="@dimen/grid_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.imrkjoseph.animenation.app.component.CustomRecyclerView
+            android:id="@+id/episode_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/flow_view"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:items="@{bottomList}"
+            tools:listitem="@layout/shared_card_details_small"/>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

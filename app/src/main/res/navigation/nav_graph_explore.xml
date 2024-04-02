@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_explore"
+    app:startDestination="@id/explore_fragment">
+
+    <fragment
+        android:id="@+id/explore_fragment"
+        android:name="com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFragment"
+        android:label="ExploreFragment"
+        tools:layout="@layout/fragment_explore_contents">
+
+        <action
+            android:id="@+id/action_to_details_screen"
+            app:destination="@id/main_details_screen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="argument"
+                app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments"/>
+        </action>
+    </fragment>
+
+    <activity
+        android:id="@+id/main_details_screen"
+        android:name="com.imrkjoseph.animenation.dashboard.shared.presentation.details.MainDetailsHandler"
+        android:label="activity_main_details_handler"
+        tools:layout="@layout/activity_main_details_handler" >
+
+        <argument
+            android:name="argument"
+            app:argType="com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments"/>
+    </activity>
+</navigation>
