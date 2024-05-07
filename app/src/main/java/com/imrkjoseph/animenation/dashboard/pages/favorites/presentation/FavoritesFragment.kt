@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.imrkjoseph.animenation.app.foundation.BaseFragment
 import com.imrkjoseph.animenation.app.shared.binder.component.FavoritesItem
 import com.imrkjoseph.animenation.app.shared.binder.component.setupFavoritesItemBinder
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.app.util.setVisible
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments
 import com.imrkjoseph.animenation.databinding.FragmentFavoritesBinding

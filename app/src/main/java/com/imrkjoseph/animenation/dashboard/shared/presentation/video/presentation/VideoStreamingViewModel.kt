@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.app.util.coRunCatching
 import com.imrkjoseph.animenation.dashboard.shared.domain.AnimeUseCase
 import com.imrkjoseph.animenation.dashboard.shared.domain.KoreanUseCase

@@ -1,5 +1,7 @@
 package com.imrkjoseph.animenation.app.util
 
+import com.imrkjoseph.animenation.R
+
 class Default {
     companion object {
         const val ANIME_BASE_URL = "https://anime-nation-server.vercel.app/meta/anilist/"
@@ -29,10 +31,23 @@ class Default {
         const val DEFAULT_MOVIE = "Movie"
         const val DEFAULT_SELECTED_EPISODE = 1
     }
-}
-enum class EntryPointType {
-    ALL,
-    ANIME,
-    KOREAN,
-    MOVIES;
+
+    enum class EntryPointType {
+        ALL,
+        ANIME,
+        KOREAN,
+        MOVIES;
+    }
+
+    enum class AnimeType(private val screenTitle: Int) {
+        TOPANIME(R.string.section_top_10_anime_this_week),
+        RECENTANIME(R.string.section_latest_episodes),
+        POPULARANIME(R.string.section_popular_anime),
+        AIRINGSCHEDULE(R.string.section_anime_airing_schedule),
+        RANDOM(R.string.section_random_anime);
+
+        companion object {
+            fun getSectionTitle(animeType: AnimeType) = AnimeType.values().find { it == animeType }?.screenTitle
+        }
+    }
 }

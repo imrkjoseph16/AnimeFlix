@@ -2,7 +2,7 @@ package com.imrkjoseph.animenation.dashboard.pages.favorites.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.favorites.FavoritesDetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.domain.SharedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

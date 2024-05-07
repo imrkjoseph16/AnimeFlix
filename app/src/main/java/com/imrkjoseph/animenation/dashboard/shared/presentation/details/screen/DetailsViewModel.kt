@@ -1,8 +1,11 @@
 package com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.Character
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,11 +26,15 @@ class DetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val itemFactory: DetailsItemFactory
 ): ViewModel() {
+    private val args = DetailsFragmentArgs.fromSavedStateHandle(savedStateHandle)
+
+    private var currentEpisodeItems = 10
 
     private val _uiState = MutableStateFlow(DetailsUiModel())
     val uiState = _uiState.asStateFlow()
 
-    private var currentEpisodeItems = 10
+    private var _canShowCasts = MutableLiveData(false)
+    var canShowCasts: LiveData<Boolean> = _canShowCasts
 
     fun getCastItems(
         cast: List<Character>? = null,
@@ -84,6 +91,19 @@ class DetailsViewModel @Inject constructor(
                     navArgs = navArgs
                 )
             }
+        }
+    }
+
+    fun verifyCanShowCasts(data: DetailsFullData) = with(args.argument) {
+        _canShowCasts.value = when {
+            // Check the characters if it's not null,
+            // this was another set of cast list since,
+            // the Anime response is different data from Korean and Movies.
+            data.characters.isNotEmpty() && entryPointType == EntryPointType.ANIME -> true
+            // Check "casts" list if it's not null,
+            // it means the entryType is either Korean or Movies,
+            data.casts.isNotEmpty() -> true
+            else -> false
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.imrkjoseph.animenation.dashboard.shared.data.dto.favorites
 
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 
 data class FavoritesDetailsFullData(
     val favoriteId: String? = null,

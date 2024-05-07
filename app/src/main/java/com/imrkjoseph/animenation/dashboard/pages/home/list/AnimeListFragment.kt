@@ -11,9 +11,9 @@ import com.imrkjoseph.animenation.app.shared.binder.component.ShimmerLoadingItem
 import com.imrkjoseph.animenation.app.shared.binder.component.SpaceItemViewDtoBinder
 import com.imrkjoseph.animenation.app.shared.binder.component.setupHorizontalListItemBinder
 import com.imrkjoseph.animenation.app.shared.binder.component.setupSectionTitleItemBinder
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.AnimeType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.dashboard.pages.home.HomeSharedViewModel
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType
 import com.imrkjoseph.animenation.dashboard.pages.home.list.TopAnimeAdapter.OnCarouselItemClick
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.anime.Result
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments
@@ -94,7 +94,6 @@ class AnimeListFragment : BaseFragment<FragmentListAnimeBinding>(bindingInflater
             topAnimeCarousel.apply {
                 val topAnimeAdapter = TopAnimeAdapter(topAnimeList = anime)
                 adapter = topAnimeAdapter
-
                 carouselIndicator.attachTo(viewPager2 = this)
 
                 topAnimeAdapter.setOnItemClickListener(object : OnCarouselItemClick {

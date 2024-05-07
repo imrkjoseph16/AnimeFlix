@@ -1,12 +1,12 @@
 package com.imrkjoseph.animenation.app.component
 
 import android.content.Context
-import android.support.annotation.AttrRes
 import android.text.Editable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
 import android.widget.ProgressBar
+import androidx.annotation.AttrRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.addTextChangedListener
 import com.imrkjoseph.animenation.app.util.setVisible
@@ -18,7 +18,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import rx.Subscription
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 class CustomSearchView @JvmOverloads constructor(
     context: Context,
@@ -57,9 +56,7 @@ class CustomSearchView @JvmOverloads constructor(
             false
         }
 
-        clearSearch.setOnClickListener {
-            clearFields()
-        }
+        clearSearch.setOnClickListener { clearFields() }
     }
 
     private fun WidgetSearchEditTextBinding.runSearchObserver() {

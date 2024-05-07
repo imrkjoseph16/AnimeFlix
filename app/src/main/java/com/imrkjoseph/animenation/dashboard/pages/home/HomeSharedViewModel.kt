@@ -2,9 +2,9 @@ package com.imrkjoseph.animenation.dashboard.pages.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imrkjoseph.animenation.app.util.Default.AnimeType
+import com.imrkjoseph.animenation.app.util.Default.AnimeType.*
 import com.imrkjoseph.animenation.app.util.coRunCatching
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.*
 import com.imrkjoseph.animenation.dashboard.pages.home.list.GetAnimeUiItems
 import com.imrkjoseph.animenation.dashboard.shared.domain.AnimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,14 +20,12 @@ class HomeSharedViewModel @Inject constructor(
 
     val getAnimeResults = MutableStateFlow(value = GetAnimeUiItems())
 
-    fun verifyShouldGetDetails(animeType: AnimeType) {
-        when(animeType) {
-            TOPANIME -> getTopAnimeList(includeCarouselList = false)
-            RECENTANIME -> getRecentEpisodeList()
-            POPULARANIME -> getPopularAnime()
-            AIRINGSCHEDULE -> getAiringSchedule()
-            else -> getRandomAnime()
-        }
+    fun verifyShouldGetDetails(animeType: AnimeType) = when(animeType) {
+        TOPANIME -> getTopAnimeList(includeCarouselList = false)
+        RECENTANIME -> getRecentEpisodeList()
+        POPULARANIME -> getPopularAnime()
+        AIRINGSCHEDULE -> getAiringSchedule()
+        else -> getRandomAnime()
     }
 
     fun getTopAnimeList(includeCarouselList: Boolean) {

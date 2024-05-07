@@ -19,14 +19,12 @@ import com.imrkjoseph.animenation.app.shared.binder.component.setupOtherEpisodes
 import com.imrkjoseph.animenation.app.shared.binder.component.setupOtherRelatedItemBinder
 import com.imrkjoseph.animenation.app.shared.binder.component.setupSectionTitleItemBinder
 import com.imrkjoseph.animenation.app.util.Default.Companion.DEFAULT_SELECTED_EPISODE
-import com.imrkjoseph.animenation.app.util.EntryPointType
 import com.imrkjoseph.animenation.app.util.showFancyToast
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.favorites.FavoritesDetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.presentation.GetContentDetails
 import com.imrkjoseph.animenation.dashboard.shared.presentation.SharedViewModel
 import com.imrkjoseph.animenation.dashboard.shared.presentation.ShowDetailsError
 import com.imrkjoseph.animenation.dashboard.shared.presentation.ShowFavorites
-import com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.presentation.video.presentation.VideoStreamingArguments
 import com.imrkjoseph.animenation.databinding.FragmentDetailsBinding
 import com.shashank.sony.fancytoastlib.FancyToast
@@ -37,7 +35,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = FragmentDetailsBinding::inflate) {
 
-    private val viewModel: DetailsViewModel by viewModels()
+    private val detailsViewModel: DetailsViewModel by viewModels()
 
     private val sharedViewModel: SharedViewModel by viewModels()
 
@@ -55,6 +53,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
     }
 
     private fun FragmentDetailsBinding.configureViews() {
+        viewModel = detailsViewModel
         back.setOnClickListener {
             goBackToPreviousScreen()
         }
@@ -90,7 +89,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 }
 
                 details?.let {
-                    viewModel.getUiSelectionItems(
+                    detailsViewModel.getUiSelectionItems(
                         result = it,
                         selectedType = selectedType,
                         navArgs = navArgs.argument
@@ -123,7 +122,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
     private fun FragmentDetailsBinding.setupCastList() {
         with(castList) {
             addItemBindings(viewHolders = setupSectionTitleItemBinder(dtoRetriever = SectionTitleItem::dto))
-            addItemBindings(viewHolders = setupHorizontalListItemBinder {})
+            addItemBindings(viewHolders = setupHorizontalListItemBinder())
         }
     }
 
@@ -181,7 +180,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 }
             }
 
-            with(viewModel) {
+            with(detailsViewModel) {
                 launch {
                     uiState.collectLatest { uiModel ->
                         uiModel.updateUiDetailsList()
@@ -202,7 +201,7 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
                 super.onScrollStateChanged(recyclerView, newState)
                 if (recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN).not()
                     && recyclerView.scrollState == RecyclerView.SCROLL_STATE_IDLE) {
-                    viewModel.exploreAdditionalEpisodes(selectedType = selectedType, navArgs = navArgs.argument)
+                    detailsViewModel.exploreAdditionalEpisodes(selectedType = selectedType, navArgs = navArgs.argument)
                 }
             }
         })
@@ -257,29 +256,17 @@ class DetailsFragment : BaseFragment<FragmentDetailsBinding>(bindingInflater = F
         binding.apply {
             details = detailsData
             details?.let {
-                canShowCasts = it.verifyCanShowCasts()
-                viewModel.getCastItems(cast = it.characters, actors = it.casts)
-                viewModel.getUiSelectionItems(
-                    result = it,
-                    selectedType = selectedType,
-                    navArgs = navArgs.argument
-                )
+                with(detailsViewModel) {
+                    verifyCanShowCasts(data = it)
+                    getCastItems(cast = it.characters, actors = it.casts)
+                    getUiSelectionItems(
+                        result = it,
+                        selectedType = selectedType,
+                        navArgs = navArgs.argument
+                    )
+                }
             }
             executePendingBindings()
-        }
-    }
-
-    private fun DetailsFullData.verifyCanShowCasts() = with(navArgs.argument) {
-        when {
-            // Check the characters if it's not null,
-            // this was another set of cast list since,
-            // the Anime response is different data from Korean and Movies.
-            characters.isNotEmpty() &&
-            entryPointType == EntryPointType.ANIME -> true
-            // Check "casts" list if it's not null,
-            // it means the entryType is either Korean or Movies,
-            casts.isNotEmpty() -> true
-            else -> false
         }
     }
 

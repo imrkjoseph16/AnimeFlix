@@ -4,17 +4,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.imrkjoseph.animenation.R
-import com.imrkjoseph.animenation.app.component.CustomRecyclerView
 import com.imrkjoseph.animenation.app.foundation.BaseFragment
 import com.imrkjoseph.animenation.app.shared.binder.component.CardDetailsLargeItem
 import com.imrkjoseph.animenation.app.shared.binder.component.setupCardDetailsLargeItemBinder
+import com.imrkjoseph.animenation.app.util.Default.AnimeType
 import com.imrkjoseph.animenation.dashboard.pages.home.HomeSharedViewModel
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.AIRINGSCHEDULE
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.POPULARANIME
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.RECENTANIME
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.TOPANIME
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsArguments
 import com.imrkjoseph.animenation.databinding.FragmentSeeAllContentsListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,9 +33,9 @@ class SeeAllContentsListFragment : BaseFragment<FragmentSeeAllContentsListBindin
     }
 
     private fun FragmentSeeAllContentsListBinding.configureViews() {
-        allAnimeList.setupAllAnimeList()
-
+        setupAllAnimeList()
         setupPageTitle(animeType = navArgs.type)
+
         back.setOnClickListener { goBackToPreviousScreen() }
         onBackPressedCallBack(::goBackToPreviousScreen)
     }
@@ -62,7 +56,7 @@ class SeeAllContentsListFragment : BaseFragment<FragmentSeeAllContentsListBindin
         }
     }
 
-    private fun CustomRecyclerView.setupAllAnimeList() {
+    private fun FragmentSeeAllContentsListBinding.setupAllAnimeList() = with(allAnimeList) {
         addItemBindings(
             viewHolders = setupCardDetailsLargeItemBinder(
                 dtoRetriever = CardDetailsLargeItem::dto,
@@ -79,13 +73,7 @@ class SeeAllContentsListFragment : BaseFragment<FragmentSeeAllContentsListBindin
     }
 
     private fun FragmentSeeAllContentsListBinding.setupPageTitle(animeType: AnimeType) {
-       pageTitle = when(animeType) {
-            TOPANIME -> R.string.section_top_10_anime_this_week
-            RECENTANIME -> R.string.section_top_10_anime_this_week
-            POPULARANIME -> R.string.section_popular_anime
-            AIRINGSCHEDULE -> R.string.section_anime_airing_schedule
-            else -> R.string.section_random_anime
-        }
+       pageTitle = AnimeType.getSectionTitle(animeType = animeType)
     }
 
     private fun goBackToPreviousScreen() = findNavController().popBackStack()

@@ -13,7 +13,7 @@ import com.imrkjoseph.animenation.app.shared.dto.ContentItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.ExploreContentItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.SectionTitleItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.SpaceItemViewDto
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.dashboard.pages.explore.data.ExploreResultData
 import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.ExploreType.*
 import com.imrkjoseph.animenation.dashboard.pages.explore.presentation.ExploreFactory.HorizontalSectionDetails.*

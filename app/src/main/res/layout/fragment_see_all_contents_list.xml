@@ -44,22 +44,16 @@
             app:layout_constraintStart_toEndOf="@+id/back"
             app:layout_constraintTop_toTopOf="@+id/back" />
 
-        <androidx.core.widget.NestedScrollView
+        <com.imrkjoseph.animenation.app.component.CustomRecyclerView
+            android:id="@+id/all_anime_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/grid_2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/shared_card_details_large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back">
-
-            <com.imrkjoseph.animenation.app.component.CustomRecyclerView
-                android:id="@+id/all_anime_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/shared_card_details_large" />
-        </androidx.core.widget.NestedScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/back" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

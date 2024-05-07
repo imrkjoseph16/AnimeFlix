@@ -12,7 +12,7 @@ import com.imrkjoseph.animenation.app.shared.dto.OtherEpisodesItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.OtherRelatedItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.SectionTitleItemViewDto
 import com.imrkjoseph.animenation.app.util.Default.Companion.TOTAL_EPISODES
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.app.util.ViewUtil.Companion.getRandomRatings
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsOtherSelection.EPISODES
 import com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsOtherSelection.RELATED

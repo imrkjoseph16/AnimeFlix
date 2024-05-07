@@ -11,8 +11,8 @@
             type="com.imrkjoseph.animenation.dashboard.shared.presentation.details.data.DetailsFullData" />
 
         <variable
-            name="canShowCasts"
-            type="Boolean" />
+            name="viewModel"
+            type="com.imrkjoseph.animenation.dashboard.shared.presentation.details.screen.DetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -298,7 +298,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout12"
-                        bind:visible="@{canShowCasts}"
+                        bind:visible="@{true}"
                         tools:listitem="@layout/shared_avatar_cast_item"/>
 
                     <com.google.android.material.tabs.TabLayout

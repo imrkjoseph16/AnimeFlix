@@ -1,6 +1,6 @@
 package com.imrkjoseph.animenation.dashboard.pages.home.list
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.imrkjoseph.animenation.R
 import com.imrkjoseph.animenation.app.component.TextLine
 import com.imrkjoseph.animenation.app.shared.binder.component.CardDetailsLargeItem
@@ -12,13 +12,11 @@ import com.imrkjoseph.animenation.app.shared.dto.ContentItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.SectionTitleItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.ShimmerLoadingItemViewDto
 import com.imrkjoseph.animenation.app.shared.dto.SpaceItemViewDto
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.AnimeType
+import com.imrkjoseph.animenation.app.util.Default.AnimeType.*
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.app.util.ViewUtil.Companion.getRandomRatings
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.AIRINGSCHEDULE
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.POPULARANIME
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.RANDOM
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.RECENTANIME
-import com.imrkjoseph.animenation.dashboard.pages.home.list.AnimeListItemFactory.AnimeType.TOPANIME
+import com.imrkjoseph.animenation.dashboard.shared.data.dto.anime.AnimeResponse
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.anime.Result
 import javax.inject.Inject
 
@@ -31,31 +29,32 @@ class AnimeListItemFactory @Inject constructor() {
 
     private fun GetAnimeUiItems.prepareList() = listOf(
         // Top 10 or Popular Anime's
-        setupSectionTitle(animeType = TOPANIME, leftTitle = R.string.section_top_10_anime_this_week),
-        topAnimeList?.results?.takeInitialResult().setupContentDetails(),
+        setupSectionTitle(sectionType = TOPANIME),
+        topAnimeList?.takeInitialResult().setupContentDetails(),
 
         // Latest Anime Episodes Release
-        setupSectionTitle(animeType = RECENTANIME, leftTitle = R.string.section_latest_episodes),
-        recentEpisodesList?.results?.takeInitialResult().setupContentDetails(),
+        setupSectionTitle(sectionType = RECENTANIME),
+        recentEpisodesList?.takeInitialResult().setupContentDetails(),
 
-        setupSectionTitle(animeType = RANDOM, leftTitle = R.string.section_random_anime),
-        randomAnimeList?.results?.takeInitialResult().setupSpecialDetails(),
+        // Random Anime
+        setupSectionTitle(sectionType = RANDOM),
+        randomAnimeList?.takeInitialResult().setupSpecialDetails(),
 
         // Popular Anime's
-        setupSectionTitle(animeType = POPULARANIME, leftTitle = R.string.section_popular_anime),
-        popularAnimeList?.results?.takeInitialResult().setupContentDetails(),
+        setupSectionTitle(sectionType = POPULARANIME),
+        popularAnimeList?.takeInitialResult().setupContentDetails(),
 
         // Anime Airing Schedule
-        setupSectionTitle(animeType = AIRINGSCHEDULE, leftTitle = R.string.section_anime_airing_schedule),
-        airingScheduleList?.results?.takeInitialResult().setupContentDetails()
+        setupSectionTitle(sectionType = AIRINGSCHEDULE),
+        airingScheduleList?.takeInitialResult().setupContentDetails()
     )
 
     private fun setupSectionTitle(
-        animeType: AnimeType,
-        @StringRes leftTitle: Int,
+        sectionType: AnimeType,
+        @StringRes leftTitle: Int? = AnimeType.getSectionTitle(animeType = sectionType),
         @StringRes rightTitle: Int = R.string.title_see_all
     ) = SectionTitleItem(
-        id = animeType,
+        id = sectionType,
         dto = SectionTitleItemViewDto(
             leftTitle = TextLine(textRes = leftTitle),
             rightTitle = TextLine(textRes = rightTitle)
@@ -96,13 +95,5 @@ class AnimeListItemFactory @Inject constructor() {
         )
     } ?: SpaceItemViewDto()
 
-    private fun List<Result>.takeInitialResult() = if (size >= 5) take(5) else this
-
-    enum class AnimeType {
-        TOPANIME,
-        RECENTANIME,
-        POPULARANIME,
-        AIRINGSCHEDULE,
-        RANDOM
-    }
+    private fun AnimeResponse.takeInitialResult() = if ((this.results?.size ?: 0) >= 5) this.results?.take(5) else this.results
 }

@@ -77,7 +77,7 @@ class ExploreFragment : BaseFragment<FragmentExploreContentsBinding>(bindingInfl
                 }
             }
 
-            viewModel.scrollToPosition.observe(viewLifecycleOwner) { position ->
+            scrollToPosition.observe(viewLifecycleOwner) { position ->
                 with(binding) {
                     if (position != null) {
                         try { searchScrollView.post(positionY = searchResultList.getChildAt(position).y.toInt()) }

@@ -2,7 +2,7 @@ package com.imrkjoseph.animenation.app.shared.dto
 
 import android.content.Context
 import com.imrkjoseph.animenation.app.component.TextLine
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 
 /**
  * Reusable component

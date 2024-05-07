@@ -2,9 +2,8 @@ package com.imrkjoseph.animenation.dashboard.shared.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.imrkjoseph.animenation.app.util.EntryPointType
-import com.imrkjoseph.animenation.app.util.EntryPointType.ANIME
-import com.imrkjoseph.animenation.app.util.EntryPointType.KOREAN
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType.*
 import com.imrkjoseph.animenation.app.util.coRunCatching
 import com.imrkjoseph.animenation.dashboard.shared.data.dto.favorites.FavoritesDetailsFullData
 import com.imrkjoseph.animenation.dashboard.shared.domain.AnimeUseCase

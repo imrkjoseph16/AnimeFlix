@@ -64,7 +64,7 @@ class ExploreViewModel @Inject constructor(
     private val _scrollToPosition = SingleLiveEvent<Int>()
     val scrollToPosition: LiveData<Int> = _scrollToPosition
 
-    private val queryStream = MutableStateFlow("")
+    private val queryStream = MutableStateFlow(value = "")
 
     init {
         getPreloadedContent()
@@ -177,7 +177,7 @@ class ExploreViewModel @Inject constructor(
         }
 
         getUiItems(searchResult = _uiState.value)
-        getScrollToBottomPosition(categoryType = exploreType)
+        getScrollToItemPosition(categoryType = exploreType)
     }
 
     private fun getUiItems(searchResult: ExploreUiItems) {
@@ -189,7 +189,7 @@ class ExploreViewModel @Inject constructor(
         }
     }
 
-    private fun getScrollToBottomPosition(categoryType: ExploreType = EXPLORE) {
+    private fun getScrollToItemPosition(categoryType: ExploreType = EXPLORE) {
         // We need to get the "item position" here,
         // so we can scroll to that section when the user's,
         // select a new category or search a new query.
@@ -212,7 +212,7 @@ class ExploreViewModel @Inject constructor(
         ) }
 
         getUiItems(searchResult = _uiState.value)
-        getScrollToBottomPosition()
+        getScrollToItemPosition()
     }
 
     private fun updateLoading(loading: Boolean) {

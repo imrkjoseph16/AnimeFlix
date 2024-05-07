@@ -2,7 +2,7 @@ package com.imrkjoseph.animenation.dashboard.pages.home.all
 
 import com.imrkjoseph.animenation.app.shared.binder.component.CardDetailsLargeItem
 import com.imrkjoseph.animenation.app.shared.dto.CardDetailsLargeItemViewDto
-import com.imrkjoseph.animenation.app.util.EntryPointType
+import com.imrkjoseph.animenation.app.util.Default.EntryPointType
 import com.imrkjoseph.animenation.app.util.ViewUtil.Companion.getRandomRatings
 import com.imrkjoseph.animenation.dashboard.pages.home.list.GetAnimeUiItems
 import javax.inject.Inject
